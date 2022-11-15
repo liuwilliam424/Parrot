@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+import { GoogleAuthProvider, getAuth, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -23,25 +23,7 @@ const analytics = getAnalytics(app);
 //Initialize Authenticaition
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider();
-
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+let uid = "NOT SIGNED IN YET"
 
 let sign_in_button = document.querySelector("#sign-in")
 sign_in_button.onclick = () => { 
@@ -52,6 +34,7 @@ sign_in_button.onclick = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+      uid = user.uid
       // ...
     }).catch((error) => {
       // Handle Errors here.
@@ -64,4 +47,15 @@ sign_in_button.onclick = () => {
       // ...
     }); }
 
-
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    console.log("Auth State Changed")
+    uid = user.uid;
+    console.log(uid)
+  } else {
+    // User is signed out
+    // ...
+  }
+});
