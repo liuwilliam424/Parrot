@@ -26,6 +26,7 @@ const provider = new GoogleAuthProvider();
 let uid = "NOT SIGNED IN YET"
 
 let sign_in_button = document.querySelector("#sign-in")
+
 sign_in_button.onclick = () => { 
     signInWithPopup(auth, provider)
     .then((result) => {
