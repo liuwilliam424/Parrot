@@ -18,7 +18,7 @@ h3 {
     font-size: var(--large-font-size);
 }
 
-button {
+#sign-in {
     background-color: rgb(241, 216, 254);
     padding: 20px;
     border-radius: 10px;
