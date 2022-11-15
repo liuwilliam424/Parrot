@@ -5,7 +5,7 @@
             "session": [123,12312321,123]
         }
     },
-    session:{
+    sessions:[{
        time_started:
        completed: true/false
        teacher: ID
@@ -22,5 +22,5 @@
         }
        ]
             
-    }
+    }]
 }
