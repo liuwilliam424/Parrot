@@ -1,0 +1,79 @@
+:root {
+    --large-font-size: 2rem;
+    --medium-font-size: 1.5rem;
+    --small-font-size: 1rem;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    font-weight: 300;
+    font-size: var(--large-font-size);
+}
+
+button {
+    background-color: rgb(141, 216, 254);
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
+button:hover {
+    transform: translate(0, -3px);
+}
+
+button:hover:active {
+    transform: translate(0, 1px);
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: var(--medium-font-size);
+    height: var(--medium-font-size);
+    border: 0.15rem solid black;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    position: relative;
+}
+
+input[type="radio"]::before {
+    content: "";
+    width: .8rem;
+    height: .8rem;
+    border-radius: 50%;
+    background-color: blue;
+    transform: scale(0);
+    transition: .2s all;
+}
+input[type="radio"]:checked::before{
+    transform: scale(1);
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: turquoise;
+    padding: 10px;
+    gap: 20px;
+    font-size: var(--medium-font-size);
+}
+
+.radio-selection {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
