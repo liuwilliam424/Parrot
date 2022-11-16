@@ -35,7 +35,14 @@ sign_in_button.onclick = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      uid = user.uid
+      uid = user.uid;
+      if (document.querySelector('#student').checked) {
+        location.href = "./student.html"
+      } else if (document.querySelector('#teacher').checked) {
+        location.href = "./teacher.html"
+      } else {
+        // error bc they didnt check a btn b4 signing in, unless u have a default value set?
+      }
       // ...
     }).catch((error) => {
       // Handle Errors here.
