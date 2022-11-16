@@ -29,6 +29,17 @@ h3 {
     transition: .3s all;
 }
 
+#code-button {
+    background-color: rgb(141, 216, 254);
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
 button:hover {
     transform: translate(0, -3px);
 }
