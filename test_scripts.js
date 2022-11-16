@@ -3,6 +3,7 @@ let mybutton = document.querySelector("button")
 let heading = document.querySelector("#jared")
 
 function joe (){
+  alert()
     const name = prompt("enter name")
     localStorage.setItem("Joe", name)
     heading.textContent = name
@@ -10,15 +11,12 @@ function joe (){
 
 mybutton.onclick = () => {joe();}
 
-name = "joe"
+let name = "joe"
 
 function greeting(name) {
-    alert(`Hello, ${name}`);
+  name = prompt("hhhiiiiiii waszzzur nname")
+  alert(`Hello, ${name}`);
   }
   
-  function processUserInput(callback) {
-    const name = prompt("Please enter your name.");
-    callback(name);
-  }
   
-  processUserInput(greeting);
+greeting();

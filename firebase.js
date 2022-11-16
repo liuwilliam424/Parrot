@@ -37,7 +37,7 @@ sign_in_button.onclick = () => {
       const user = result.user;
       uid = user.uid;
       if (document.querySelector('#student').checked) {
-        location.href = "./student.html"
+        location.href = "./student_home.html"
       } else if (document.querySelector('#teacher').checked) {
         location.href = "./teacher.html"
       } else {
