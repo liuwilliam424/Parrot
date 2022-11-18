@@ -21,7 +21,8 @@ let session_code_box = document.querySelector('#code_enter')
 
 session_button.onclick = () => {
     console.log(session_code_box.value)
-    localStorage.setItem("SessionID", )
+    localStorage.setItem("SessionID", session_code_box)
+    location.href = "./student_session_main.html"
 }
 
 console.log("Printing")

@@ -18,8 +18,13 @@ h3 {
     font-size: var(--large-font-size);
 }
 
-#sign-in {
-    background-color: rgb(241, 216, 254);
+#understanding_button {
+    background-color: rgb(50, 190, 50);
+    display: flex;
+    height: 100px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -29,8 +34,11 @@ h3 {
     transition: .3s all;
 }
 
-#code_button {
-    background-color: rgb(141, 216, 254);
+#okay_button {
+    background-color: rgb(240, 220, 50);
+    display:block;
+    height: 100px;
+    width: 100px;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -39,12 +47,12 @@ h3 {
     border: none;
     transition: .3s all;
 }
-#understanding_button {
-    background-color: rgb(50, 190, 50);
+
+#confused_button {
+    background-color: rgb(190, 50, 50);
     display:block;
     height: 100px;
     width: 100px;
-    text-align: center;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -62,31 +70,6 @@ button:hover:active {
     transform: translate(0, 1px);
 }
 
-input[type="radio"] {
-    appearance: none;
-    width: var(--medium-font-size);
-    height: var(--medium-font-size);
-    border: 0.15rem solid black;
-    border-radius: 50%;
-    display: grid;
-    place-content: center;
-    position: relative;
-}
-
-input[type="radio"]::before {
-    content: "";
-    width: .8rem;
-    height: .8rem;
-    border-radius: 50%;
-    background-color: blue;
-    transform: scale(0);
-    transition: .2s all;
-}
-input[type="radio"]:checked::before{
-    transform: scale(1);
-
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -94,11 +77,4 @@ input[type="radio"]:checked::before{
     padding: 10px;
     gap: 20px;
     font-size: var(--medium-font-size);
-}
-
-.radio-selection {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-
 }
