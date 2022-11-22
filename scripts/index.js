@@ -35,15 +35,6 @@ let welcome_message = document.querySelector("#welcome_message")
 
 sign_in_button.style.display = "none"
 
-function writeUserData(UID, name, role) {
-  console.log("writing user data")
-  const db = getDatabase();
-  set(ref(db, 'Users/' + UID), {
-    name: name,
-    role: role,
-  });
-}
-
 document.querySelectorAll('#student, #teacher').forEach((element) => {
   element.onclick = () => {
     sign_in_button.style.display = "flex"
@@ -61,13 +52,11 @@ sign_in_button.onclick = () => {
 
       if (document.querySelector('#student').checked) {
         localStorage.setItem("Role", "Student")
-        writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
         location.href = "./student_home.html"
 
       } else if (document.querySelector('#teacher').checked) {
         localStorage.setItem("Role", "Teacher")
-        writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
-        location.href = "./teacher.html"
+        location.href = "./teacher_home.html"
 
       } else {
         signOut(auth).then(() => {
