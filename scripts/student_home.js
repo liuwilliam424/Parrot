@@ -21,15 +21,6 @@ const database = getDatabase();
 let session_code_box = document.querySelector('#code_enter')
 let session_button = document.querySelector('#code_button')
 
-function writeUserData(UID, name, role) {
-    console.log("writing user data")
-    const db = getDatabase();
-    set(ref(db, 'Users/' + UID), {
-      name: name,
-      role : role
-    });
-  }
-
 session_button.onclick = () => {
     console.log("SessionID: " + session_code_box.value)
     localStorage.setItem("SessionID", session_code_box.value)

@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 import { GoogleAuthProvider, getAuth, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 
 //Firebase configuration
 const firebaseConfig = {
@@ -70,7 +70,13 @@ sign_in_button.onclick = () => {
         location.href = "./teacher.html"
 
       } else {
-        alert("Error: please select a role.")
+        signOut(auth).then(() => {
+          localStorage.clear()
+          location.reload()
+        }).catch((error) => {
+          alert("Error: failed to sign out")
+        });
+
       }
     }).catch((error) => {
       alert("Error: Google Sign In Failed")
@@ -94,6 +100,7 @@ onAuthStateChanged(auth, (user) => {
     localStorage.setItem("Name", user.displayName)
 
     welcome_message.innerHTML = `Welcome back, ${localStorage.getItem("Name")}!`;
+    sign_in_button.style.display = "flex"
     sign_in_button.innerHTML = "Confirm with Google Sign In";
     document.querySelectorAll('.radio-selection').forEach((element) => {
       element.style.display = "none"
