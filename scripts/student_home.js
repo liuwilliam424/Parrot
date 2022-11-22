@@ -22,6 +22,7 @@ let session_code_box = document.querySelector('#code_enter')
 let session_button = document.querySelector('#code_button')
 
 function writeUserData(UID, name, role) {
+    console.log("writing user data")
     const db = getDatabase();
     set(ref(db, 'Users/' + UID), {
       name: name,
@@ -31,16 +32,9 @@ function writeUserData(UID, name, role) {
 
 
 session_button.onclick = () => {
-    writeUserData("wabbafet/john/tree/tree", "name", "imageUrl")
-    console.log("Function ran without joe?")
-    // console.log(session_code_box.value)
-    // localStorage.setItem("SessionID", session_code_box)
-    // location.href = "./student_session_main.html"
+    writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
+    console.log(session_code_box.value)
+    localStorage.setItem("SessionID", session_code_box)
+    location.href = "./student_session_main.html"
 }
 
-
-
-console.log("Printing")
-console.log(localStorage.getItem("UID"));
-console.log(localStorage.getItem("Name"));
-console.log(localStorage.getItem("Role"));
