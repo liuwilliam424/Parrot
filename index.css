@@ -28,6 +28,7 @@ h3 {
     cursor: pointer;
     border: none;
     transition: .3s all;
+    opacity: 0
 }
 
 #sign-out {
@@ -40,6 +41,7 @@ h3 {
     cursor: pointer;
     border: none;
     transition: .3s all;
+    opacity: 0
 }
 
 #code_button {

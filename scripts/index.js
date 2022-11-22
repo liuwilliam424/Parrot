@@ -1,6 +1,3 @@
-//TODO: fix centering on sign out button
-
-
 //https://firebase.google.com/docs/web/learn-more#available-libraries
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
@@ -33,14 +30,15 @@ let sign_in_button = document.querySelector("#sign-in")
 let sign_out_button = document.querySelector("#sign-out")
 let welcome_message = document.querySelector("#welcome_message")
 
-sign_in_button.style.display = "none"
-
+//Hide sign-in button unless teacher/student is checked
 document.querySelectorAll('#student, #teacher').forEach((element) => {
   element.onclick = () => {
-    sign_in_button.style.display = "flex"
+    sign_in_button.disabled = false
+    sign_in_button.style.opacity = "1"
   }
 });
 
+//When sign-in button is clicked, sign in with google
 sign_in_button.onclick = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -50,6 +48,7 @@ sign_in_button.onclick = () => {
       // The signed-in user info.
       const user = result.user;
 
+      //brings user to either student or teacher home page based on what they clicked
       if (document.querySelector('#student').checked) {
         localStorage.setItem("Role", "Student")
         location.href = "./student_home.html"
@@ -59,6 +58,7 @@ sign_in_button.onclick = () => {
         location.href = "./teacher_home.html"
 
       } else {
+        //if it doesn't work, then sign the user out of google, and reset everything
         signOut(auth).then(() => {
           localStorage.clear()
           location.reload()
@@ -87,22 +87,24 @@ onAuthStateChanged(auth, (user) => {
     console.log("signed in")
     localStorage.setItem("UID", user.uid);
     localStorage.setItem("Name", user.displayName)
-
+    
+    sign_in_button.style.opacity = '1'
+    sign_in_button.disabled = false
     welcome_message.innerHTML = `Welcome back, ${localStorage.getItem("Name")}!`;
-    sign_in_button.style.display = "flex"
     sign_in_button.innerHTML = "Confirm with Google Sign In";
     document.querySelectorAll('.radio-selection').forEach((element) => {
       element.style.display = "none"
-      sign_out_button.style.display = "flex"
+      sign_out_button.style.opacity = "1"
+      sign_out_button.disabled = false
     });
 
   } else {
     //code that runs if user is signed out
     console.log("not signed in")
-    sign_out_button.style.display = "none"
   }
 });
 
+//sign-out button signs user out on click
 sign_out_button.onclick = () => {
   signOut(auth).then(() => {
     localStorage.clear()

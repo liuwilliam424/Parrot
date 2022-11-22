@@ -16,22 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
-function writeUserData(UID, name, role) {
-    console.log("writing user data")
-    const db = getDatabase();
-    set(ref(db, 'Users/' + UID), {
-      name: name,
-      role: role,
-    });
-  }
-
-writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
-
-let session_code = Math.floor(Math.random()*10000)
-localStorage.setItem("SessionID", session_code)
-
-let code_display = document.querySelector('#session_code')
-code_display.innerHTML = "Your code is " + session_code
-
-let start_button = document.querySelector("#start_session")
-start_button.onclick = () => {location.href = "/teacher_session_main.html"}
+let confused_temp = document.querySelector('#temp_confused')
+let okay_temp = document.querySelector('#temp_okay')
+let undersanding_temp = document.querySelector('#temp_understanding')
