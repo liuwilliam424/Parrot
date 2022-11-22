@@ -30,11 +30,9 @@ function writeUserData(UID, name, role) {
     });
   }
 
-
 session_button.onclick = () => {
-    writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
-    console.log(session_code_box.value)
-    localStorage.setItem("SessionID", session_code_box)
+    console.log("SessionID: " + session_code_box.value)
+    localStorage.setItem("SessionID", session_code_box.value)
     location.href = "./student_session_main.html"
 }
 

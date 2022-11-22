@@ -5,6 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 import { GoogleAuthProvider, getAuth, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 
 //Firebase configuration
 const firebaseConfig = {
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const database = getDatabase();
 const analytics = getAnalytics(app);
 
 //Initialize Authentication
@@ -31,6 +33,23 @@ let sign_in_button = document.querySelector("#sign-in")
 let sign_out_button = document.querySelector("#sign-out")
 let welcome_message = document.querySelector("#welcome_message")
 
+sign_in_button.style.display = "none"
+
+function writeUserData(UID, name, role) {
+  console.log("writing user data")
+  const db = getDatabase();
+  set(ref(db, 'Users/' + UID), {
+    name: name,
+    role: role,
+  });
+}
+
+document.querySelectorAll('#student, #teacher').forEach((element) => {
+  element.onclick = () => {
+    sign_in_button.style.display = "flex"
+  }
+});
+
 sign_in_button.onclick = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -39,23 +58,28 @@ sign_in_button.onclick = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+
       if (document.querySelector('#student').checked) {
         localStorage.setItem("Role", "Student")
+        writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
         location.href = "./student_home.html"
+
       } else if (document.querySelector('#teacher').checked) {
         localStorage.setItem("Role", "Teacher")
+        writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
         location.href = "./teacher.html"
+
       } else {
         alert("Error: please select a role.")
       }
-      // ...
     }).catch((error) => {
+      alert("Error: Google Sign In Failed")
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
       // The email of the user's account used.
       const email = error.customData.email;
-      // The AuthCredential type that was used.
+      // The AuthCredential type that was used. 
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     });
@@ -68,11 +92,12 @@ onAuthStateChanged(auth, (user) => {
     console.log("signed in")
     localStorage.setItem("UID", user.uid);
     localStorage.setItem("Name", user.displayName)
+
     welcome_message.innerHTML = `Welcome back, ${localStorage.getItem("Name")}!`;
-    sign_in_button.innerHTML = "Let's get started!";
+    sign_in_button.innerHTML = "Confirm with Google Sign In";
     document.querySelectorAll('.radio-selection').forEach((element) => {
       element.style.display = "none"
-    sign_out_button.style.display = "flex"
+      sign_out_button.style.display = "flex"
     });
 
   } else {
