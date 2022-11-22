@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,15 +16,29 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const database = getDatabase();
 
-let session_button = document.querySelector('#code_button')
 let session_code_box = document.querySelector('#code_enter')
+let session_button = document.querySelector('#code_button')
+
+function writeUserData(UID, name, role) {
+    const db = getDatabase();
+    set(ref(db, 'Users/' + UID), {
+      name: name,
+      role : role
+    });
+  }
+
 
 session_button.onclick = () => {
-    console.log(session_code_box.value)
-    localStorage.setItem("SessionID", session_code_box)
-    location.href = "./student_session_main.html"
+    writeUserData("wabbafet/john/tree/tree", "name", "imageUrl")
+    console.log("Function ran without joe?")
+    // console.log(session_code_box.value)
+    // localStorage.setItem("SessionID", session_code_box)
+    // location.href = "./student_session_main.html"
 }
+
+
 
 console.log("Printing")
 console.log(localStorage.getItem("UID"));
