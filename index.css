@@ -20,6 +20,19 @@ h3 {
 
 #sign-in {
     background-color: rgb(241, 216, 254);
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
+#sign-out {
+    background-color: rgb(241, 216, 254);
+    text-align: center;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -31,6 +44,7 @@ h3 {
 
 #code_button {
     background-color: rgb(141, 216, 254);
+    text-align: center;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -100,5 +114,4 @@ input[type="radio"]:checked::before{
     display: flex;
     align-items: center;
     gap: 5px;
-
 }
