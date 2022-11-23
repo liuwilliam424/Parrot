@@ -1,6 +1,7 @@
 :root {
-    --large-font-size: 2rem;
-    --medium-font-size: 1.5rem;
+    --large-font-size: 2.25rem;
+    --medium-font-size: 1.75rem;
+    --small-medium-font-size: 1.4rem;
     --small-font-size: 1rem;
 
 }
@@ -16,67 +17,42 @@ body {
 h3 {
     font-weight: 300;
     font-size: var(--large-font-size);
+    text-align: center;
 }
 
-#sign-in {
-    background-color: rgb(241, 216, 254);
+h2 {
+    font-weight: 300;
+    font-size: 4rem;
     text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-    opacity: 0
 }
 
-#sign-out {
-    background-color: rgb(241, 216, 254);
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-    opacity: 0
+#confused {
+    color: red
 }
 
-#code_button {
-    background-color: rgb(141, 216, 254);
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-}
-#understanding_button {
-    background-color: rgb(50, 190, 50);
-    display:block;
-    height: 100px;
-    width: 100px;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
+#okay {
+    color: rgb(182, 172, 77)
 }
 
-#understanding_button {
-    background-color: rgb(50, 190, 50);
+#understanding {
+    color: green
+}
+
+#code_enter {
     display: flex;
-    height: 100px;
-    width: 100px;
-    justify-content: center;
-    align-items: center;
+    border-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    transition: .3s all;
+}
+
+button {
+    background-color: rgb(241, 216, 254);
+    text-align: center;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -85,10 +61,39 @@ h3 {
     border: none;
     transition: .3s all;
 }
+
+#sign-out,
+#sign-in,
+#continue {
+    opacity: 0
+}
+
+p {
+    font-size: var(--small-medium-font-size);
+    text-align: center
+}
+
+
+
+#understanding_button {
+    background-color: rgb(50, 190, 50);
+    display: block;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
 
 #okay_button {
     background-color: rgb(240, 220, 50);
-    display:block;
+    display: block;
     height: 100px;
     width: 100px;
     padding: 20px;
@@ -102,7 +107,7 @@ h3 {
 
 #confused_button {
     background-color: rgb(190, 50, 50);
-    display:block;
+    display: block;
     height: 100px;
     width: 100px;
     padding: 20px;
@@ -142,14 +147,30 @@ input[type="radio"]::before {
     transform: scale(0);
     transition: .2s all;
 }
-input[type="radio"]:checked::before{
+
+input[type="radio"]:checked::before {
     transform: scale(1);
 
 }
 
-.container {
+.container_vert {
     display: flex;
+    max-width: 800px;
+    max-height: 800px;
     flex-direction: column;
+    box-shadow: turquoise;
+    padding: 10px;
+    gap: 20px;
+    font-size: var(--medium-font-size);
+}
+
+.container_hori {
+    display: flex;
+    max-width: 800px;
+    max-height: 100px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
     box-shadow: turquoise;
     padding: 10px;
     gap: 20px;
@@ -160,4 +181,9 @@ input[type="radio"]:checked::before{
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+#myChart {
+    display: flex;
+    width: 25em
 }
