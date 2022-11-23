@@ -17,6 +17,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
+let end_button = document.querySelector('#end_session_button')
+end_button.onclick = () => {location.href = "/html/teacher_analytics.html"}
+
 let confused_temp = document.querySelector('#temp_confused')
 let okay_temp = document.querySelector('#temp_okay')
 let understanding_temp = document.querySelector('#temp_understanding')
@@ -40,8 +43,8 @@ var chart = new Chart("myChart", {
     options: {
         legend: { display: false },
         title: {
-            display: true,
-            text: "Poooop"
+            display: false,
+            text: ""
         }
     }
 });
