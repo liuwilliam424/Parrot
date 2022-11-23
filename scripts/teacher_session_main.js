@@ -18,11 +18,11 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 let end_button = document.querySelector('#end_session_button')
-end_button.onclick = () => {location.href = "/html/teacher_analytics.html"}
+end_button.onclick = () => { location.href = "/html/teacher_analytics.html" }
 
-let confused_temp = document.querySelector('#temp_confused')
-let okay_temp = document.querySelector('#temp_okay')
-let understanding_temp = document.querySelector('#temp_understanding')
+let confused = document.querySelector('#confused')
+let okay = document.querySelector('#okay')
+let understanding = document.querySelector('#understanding')
 let num_confused = 0
 let num_okay = 0
 let num_understanding = 0
@@ -94,9 +94,9 @@ onValue(responses_ref, (snapshot) => {
             )
 
             console.log(num_confused, num_okay, num_understanding)
-            confused_temp.innerHTML = num_confused
-            okay_temp.innerHTML = num_okay
-            understanding_temp.innerHTML = num_understanding
+            confused.innerHTML = num_confused
+            okay.innerHTML = num_okay
+            understanding.innerHTML = num_understanding
 
 
             chart.data.datasets[0].data = [num_confused, num_okay, num_understanding, 0]

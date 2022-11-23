@@ -10,18 +10,20 @@
 </head>
 
 <body>
-    <div class="container">
-        <h3>Enter your code here :D</h3>
-        <form>
-            <label for="code_enter">Session Code:</label><br>
-            <input type="text" id="code_enter" name="code_enter"><br>
-            
-        </form> 
-          
-          <p>Your teacher will give you the session code shortly.</p>
-          
-          <button id="code_button">Join Session</button>
+    <div class="container_vert">
+        <h3>Enter connection code</h3>
+
+        <input type="text" id="code_enter" name="code_enter"><br>
+
+        <p>Please wait for teacher to start session before joining.</p>
+
+        <button id="code_button">Join Session</button>
     </div>
+    
+    <!-- disable pressing enter -->
+    <script type="text/javascript">
+        window.addEventListener('keydown', function (e) { if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) { if (e.target.nodeName == 'INPUT' && e.target.type == 'text') { e.preventDefault(); return false; } } }, true);
+    </script>
     <script type="module" src="../scripts/student_home.js"> </script>
 
 </body>

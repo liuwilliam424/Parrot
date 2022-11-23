@@ -29,6 +29,7 @@ const provider = new GoogleAuthProvider();
 let sign_in_button = document.querySelector("#sign-in")
 let sign_out_button = document.querySelector("#sign-out")
 let welcome_message = document.querySelector("#welcome_message")
+let continue_button = document.querySelector('#continue')
 
 //Hide sign-in button unless teacher/student is checked
 document.querySelectorAll('#student, #teacher').forEach((element) => {
@@ -37,6 +38,42 @@ document.querySelectorAll('#student, #teacher').forEach((element) => {
     sign_in_button.style.opacity = "1"
   }
 });
+
+onAuthStateChanged(auth, (user) => {
+  //checks the sign-in state of the user
+  if (user) {
+    //code that runs if user is signed in
+    console.log("signed in")
+
+    sign_in_button.style.display = "none"
+
+    localStorage.setItem("UID", user.uid);
+    localStorage.setItem("Name", user.displayName)
+
+    continue_button.style.opacity = '1'
+    continue_button.disabled = false
+    welcome_message.innerHTML = `Welcome back, ${localStorage.getItem("Name")}!`;
+    document.querySelectorAll('.radio-selection').forEach((element) => {
+      element.style.display = "none"
+      sign_out_button.style.opacity = "1"
+      sign_out_button.disabled = false
+    });
+
+  } else {
+    //code that runs if user is signed out
+    console.log("not signed in")
+  }
+});
+
+continue_button.onclick = () => {
+  if (localStorage.getItem("Role") == "Student") {
+    location.href = "html/student_home.html"
+  }
+
+  if (localStorage.getItem("Role") == "Student") {
+    location.href = "html/teacher_home.html"
+  }
+}
 
 //When sign-in button is clicked, sign in with google
 sign_in_button.onclick = () => {
@@ -79,30 +116,6 @@ sign_in_button.onclick = () => {
       // ...
     });
 }
-
-onAuthStateChanged(auth, (user) => {
-  //checks the sign-in state of the user
-  if (user) {
-    //code that runs if user is signed in
-    console.log("signed in")
-    localStorage.setItem("UID", user.uid);
-    localStorage.setItem("Name", user.displayName)
-    
-    sign_in_button.style.opacity = '1'
-    sign_in_button.disabled = false
-    welcome_message.innerHTML = `Welcome back, ${localStorage.getItem("Name")}!`;
-    sign_in_button.innerHTML = "Confirm with Google Sign In";
-    document.querySelectorAll('.radio-selection').forEach((element) => {
-      element.style.display = "none"
-      sign_out_button.style.opacity = "1"
-      sign_out_button.disabled = false
-    });
-
-  } else {
-    //code that runs if user is signed out
-    console.log("not signed in")
-  }
-});
 
 //sign-out button signs user out on click
 sign_out_button.onclick = () => {

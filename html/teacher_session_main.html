@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../index.css">
-    <title>Teacher Session</title>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../index.css">
+  <title>Teacher Session</title>
 </head>
+
 <body>
 
-  
-  <h1>Heading for Teacher</h1>
+  <div class="container_vert">
+      <h3>How your class is doing</h3>
 
+      <div class="container_hori">
+        <h2 id="confused">0</h2>
+        <br>
+        <h2 id="okay">0</h2>
+        <br>
+        <h2 id="understanding">0</h2>
+      </div>
 
-  <p>Paragraph for Teacher</p>
-
-  <p id="temp_understanding">Num understanding</p>
-  <p id="temp_okay">Num okay</p>
-  <p id="temp_confused">Num confused</p>
-
-  <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+  <canvas id="myChart"></canvas>
 
   <button id="end_session_button">End Session</button>
-  
+  </div>
 
   <script type="module" src="../scripts/teacher_session_main.js"> </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
 </body>
+
 </html>
