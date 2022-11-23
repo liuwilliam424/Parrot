@@ -54,23 +54,45 @@ onValue(responses_ref, (snapshot) => {
             ));
 
             recent_data.forEach(
-                function (value){
+                function (value) {
                     console.log(value)
-                    if (value == 1){
+                    if (value == 1) {
                         num_confused += 1
                     }
-                    else if (value == 2){
+                    else if (value == 2) {
                         num_okay += 1
                     }
-                    else if (value == 3){
+                    else if (value == 3) {
                         num_understanding += 1
                     }
                 }
             )
+
             console.log(num_confused, num_okay, num_understanding)
             confused_temp.innerHTML = num_confused
             okay_temp.innerHTML = num_okay
             understanding_temp.innerHTML = num_understanding
+            var xValues = ["Confused", "Okay", "Understanding"];
+            var yValues = [num_confused, num_okay, num_understanding, 0];
+            var barColors = ["red", "orange", "green"];
+
+            new Chart("myChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Poooop"
+                    }
+                }
+            });
             num_confused = num_okay = num_understanding = 0
 
         } else {
@@ -80,4 +102,6 @@ onValue(responses_ref, (snapshot) => {
         alert("something went wrong, who knows what")
         console.error(error);
     });
+
 });
+
