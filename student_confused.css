@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --large-font-size: 2rem;
+    --medium-font-size: 1.5rem;
+    --small-font-size: 1rem;
+
+}
+
+html,body {
+    height: 100%;
+    font-size: 1rem;
+    background-color: coral;
+}
+
+#container {
+    display: flex;
+    width: 100%;
+}
+
+#first {
+ 
+    width: 100%;
+    height: 90vh;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+
+.small_btn {
+    width: 100%;
+    height: 300px;
+    background-color: rgb(159,197,232);
+    outline:  black;
+
+    border-radius: 10px;
+    font-size: var(--large-font-size);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s all;
+}
+
+.big_btn {
+    width: 100%;
+    height: 50%;
+    background-color: rgb(200, 60, 60);
+    border-radius: 10px;
+    outline: black;
+    font-size: var(--large-font-size);
+    color:antiquewhite;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s all;
+    margin-top: 50%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: "button1 button5 button2"
+                         "button3 button5 button4";
+    grid-gap: 20px;
+}
+
+.grid-item:nth-child(1) {
+    grid-area: button1;
+}
+
+.grid-item:nth-child(2) {
+    grid-area: button2;
+}
+
+.grid-item:nth-child(3) {
+    grid-area: button3;
+}
+
+.grid-item:nth-child(4) {
+    grid-area: button4;
+}
+
+.grid-item:nth-child(5) {
+    grid-area: button5;
+}
