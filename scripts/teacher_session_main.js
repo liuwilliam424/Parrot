@@ -24,6 +24,28 @@ let num_confused = 0
 let num_okay = 0
 let num_understanding = 0
 
+var xValues = ["Confused", "Okay", "Understanding"];
+var yValues = [num_confused, num_okay, num_understanding, 0];
+var barColors = ["red", "orange", "green"];
+
+var chart = new Chart("myChart", {
+    type: "bar",
+    data: {
+        labels: xValues,
+        datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+        }]
+    },
+    options: {
+        legend: { display: false },
+        title: {
+            display: true,
+            text: "Poooop"
+        }
+    }
+});
+
 function update_session_meta(session_id, UID) {
     console.log("writing user data")
     const db = getDatabase();
@@ -72,28 +94,13 @@ onValue(responses_ref, (snapshot) => {
             confused_temp.innerHTML = num_confused
             okay_temp.innerHTML = num_okay
             understanding_temp.innerHTML = num_understanding
-            var xValues = ["Confused", "Okay", "Understanding"];
-            var yValues = [num_confused, num_okay, num_understanding, 0];
-            var barColors = ["red", "orange", "green"];
 
-            new Chart("myChart", {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        data: yValues
-                    }]
-                },
-                options: {
-                    legend: { display: false },
-                    title: {
-                        display: true,
-                        text: "Poooop"
-                    }
-                }
-            });
+
+            chart.data.datasets[0].data = [num_confused, num_okay, num_understanding, 0]
+            chart.update()
+
             num_confused = num_okay = num_understanding = 0
+
 
         } else {
             console.log("No data available");
