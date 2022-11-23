@@ -54,7 +54,7 @@ okay_button.onclick = () => {
 
 confused_button.onclick = () => {
   submit_response(UID, 1)
-  location.href = "/html/student_confused.html"
+  location.href = "../html/student_confused.html"
 }
 
 submit_response(UID, 3)
