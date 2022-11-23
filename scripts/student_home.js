@@ -37,7 +37,7 @@ session_button.onclick = () => {
     localStorage.setItem("SessionID", session_code_box.value)
     let code = session_code_box.value
     if (code) {
-        location.href = "/html/student_session_main.html"
+        location.href = "../html/student_session_main.html"
     }
     else{
         alert("Please enter session code.")

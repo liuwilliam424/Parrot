@@ -27,11 +27,11 @@ function writeUserData(UID, name, role) {
 
 writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
 
-let session_code = Math.floor(Math.random()*10000)
+let session_code = Math.floor(Math.random()*1000000)
 localStorage.setItem("SessionID", session_code)
 
 let code_display = document.querySelector('#session_code')
 code_display.innerHTML = "Your code is " + session_code
 
 let start_button = document.querySelector("#start_session")
-start_button.onclick = () => {location.href = "/html/teacher_session_main.html"}
+start_button.onclick = () => {location.href = "html/teacher_session_main.html"}
