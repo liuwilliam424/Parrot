@@ -51,11 +51,11 @@ sign_in_button.onclick = () => {
       //brings user to either student or teacher home page based on what they clicked
       if (document.querySelector('#student').checked) {
         localStorage.setItem("Role", "Student")
-        location.href = "./student_home.html"
+        location.href = "/html/student_home.html"
 
       } else if (document.querySelector('#teacher').checked) {
         localStorage.setItem("Role", "Teacher")
-        location.href = "./teacher_home.html"
+        location.href = "/html/teacher_home.html"
 
       } else {
         //if it doesn't work, then sign the user out of google, and reset everything

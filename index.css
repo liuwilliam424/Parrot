@@ -70,6 +70,50 @@ h3 {
     transition: .3s all;
 }
 
+#understanding_button {
+    background-color: rgb(50, 190, 50);
+    display: flex;
+    height: 100px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
+#okay_button {
+    background-color: rgb(240, 220, 50);
+    display:block;
+    height: 100px;
+    width: 100px;
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
+#confused_button {
+    background-color: rgb(190, 50, 50);
+    display:block;
+    height: 100px;
+    width: 100px;
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: var(--medium-font-size);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
 button:hover {
     transform: translate(0, -3px);
 }

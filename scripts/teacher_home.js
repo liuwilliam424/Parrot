@@ -34,4 +34,4 @@ let code_display = document.querySelector('#session_code')
 code_display.innerHTML = "Your code is " + session_code
 
 let start_button = document.querySelector("#start_session")
-start_button.onclick = () => {location.href = "/teacher_session_main.html"}
+start_button.onclick = () => {location.href = "/html/teacher_session_main.html"}

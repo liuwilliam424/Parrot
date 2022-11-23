@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
+import { getDatabase, ref, set, update, child, get, onValue } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
+import { Timestamp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyBUcuvOpLrA0L0tj1pE82YVwZIeBZcSfDI",
@@ -18,4 +19,65 @@ const database = getDatabase();
 
 let confused_temp = document.querySelector('#temp_confused')
 let okay_temp = document.querySelector('#temp_okay')
-let undersanding_temp = document.querySelector('#temp_understanding')
+let understanding_temp = document.querySelector('#temp_understanding')
+let num_confused = 0
+let num_okay = 0
+let num_understanding = 0
+
+function update_session_meta(session_id, UID) {
+    console.log("writing user data")
+    const db = getDatabase();
+    update(ref(db, '/Sessions/' + session_id + '/'), {
+        teacherID: UID,
+        time_started: Timestamp.now()
+    });
+}
+
+update_session_meta(localStorage.getItem("SessionID"), localStorage.getItem("UID"))
+
+let sessionID = localStorage.getItem("SessionID")
+
+const dbRef = ref(database);
+const responses_ref = ref(database, `Sessions/${sessionID}/responses`);
+
+onValue(responses_ref, (snapshot) => {
+    console.log("data was changed")
+    let recent_data = new Map();
+    get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            (snapshot.forEach(
+                function (datum) {
+                    let UID = datum.val()['UID']
+                    let rating = datum.val()['rating']
+                    recent_data.set(UID, rating)
+                }
+            ));
+
+            recent_data.forEach(
+                function (value){
+                    console.log(value)
+                    if (value == 1){
+                        num_confused += 1
+                    }
+                    else if (value == 2){
+                        num_okay += 1
+                    }
+                    else if (value == 3){
+                        num_understanding += 1
+                    }
+                }
+            )
+            console.log(num_confused, num_okay, num_understanding)
+            confused_temp.innerHTML = num_confused
+            okay_temp.innerHTML = num_okay
+            understanding_temp.innerHTML = num_understanding
+            num_confused = num_okay = num_understanding = 0
+
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        alert("something went wrong, who knows what")
+        console.error(error);
+    });
+});

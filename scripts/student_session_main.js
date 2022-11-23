@@ -27,20 +27,22 @@ let okay_button = document.querySelector("#okay_button")
 let confused_button = document.querySelector("#confused_button")
 
 function submit_response(uid, rating) {
-    console.log("response submitting")
-    // A post entry.
+  console.log("response submitting")
+  // A post entry.
 
-    const list_ref = ref(database, '/Sessions/' + session_id + '/responses') 
-    const new_post_ref = push(list_ref)
+  const list_ref = ref(database, '/Sessions/' + session_id + '/responses')
+  const new_post_ref = push(list_ref)
 
-    const session_entry = {
-      UID : uid,
-      rating : rating,
-      time : Timestamp.now(),
-    };
+  const session_entry = {
+    UID: uid,
+    rating: rating,
+    time: Timestamp.now(),
+  };
 
-    set(new_post_ref, session_entry)
-  }
+
+  
+  set(new_post_ref, session_entry)
+}
 
 understanding_button.onclick = () => {
   submit_response(UID, 3)
@@ -53,3 +55,5 @@ okay_button.onclick = () => {
 confused_button.onclick = () => {
   submit_response(UID, 1)
 }
+
+submit_response(UID, 3)
