@@ -26,10 +26,15 @@ let understanding = document.querySelector('#understanding')
 let num_confused = 0
 let num_okay = 0
 let num_understanding = 0
+let bod = document.querySelector('body')
 
 var xValues = ["Confused", "Okay", "Understanding"];
 var yValues = [num_confused, num_okay, num_understanding, 0];
 var barColors = ["red", "orange", "green"];
+
+let blinks = 0;
+let nIntervId;
+
 
 var chart = new Chart("myChart", {
     type: "bar",
@@ -101,9 +106,44 @@ onValue(responses_ref, (snapshot) => {
 
             chart.data.datasets[0].data = [num_confused, num_okay, num_understanding, 0]
             chart.update()
+            
 
             num_confused = num_okay = num_understanding = 0
 
+            function blink() {
+                console.log(bod.style.border)
+                blinks += 1
+                console.log(blinks)
+                if (bod.style.getPropertyValue('border') == "20px solid red") {
+                    bod.style.border = "";;
+                    console.log("turned white")
+                }
+                else if (bod.style.getPropertyValue('border') == "") {
+                    bod.style.border = "20px solid red";
+                    console.log("turned red")
+                }
+                if (blinks >= 8){
+                    console.log(blinks)
+                    stopBlink()
+                }
+            }
+
+
+            function useBlink() {
+                // check if an interval has already been set up
+                if (!nIntervId) {
+                    nIntervId = setInterval(blink, 300);
+                }
+            }
+
+            function stopBlink() {
+                clearInterval(nIntervId);
+                // release our intervalID from the variable
+                nIntervId = null;
+            }
+
+            useBlink()
+            blinks = 0
 
         } else {
             console.log("No data available");
