@@ -92,8 +92,8 @@ p {
 
 
 #okay_button {
-    background-color: rgb(240, 220, 50);
-    display: block;
+    background-color: rgb(240, 150, 50);
+    display:block;
     height: 100px;
     width: 100px;
     padding: 20px;
