@@ -10,9 +10,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    outline-offset: -50px;
+} 
 
 h3 {
     font-weight: 300;
@@ -38,7 +38,7 @@ h2 {
     color: green
 }
 
-#code_enter {
+input[type="text"]{
     display: flex;
     border-color: black;
     padding: 20px;
@@ -50,17 +50,6 @@ h2 {
     transition: .3s all;
 }
 
-button {
-    background-color: rgb(241, 216, 254);
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-}
 
 #sign-out,
 #sign-in,
@@ -73,43 +62,9 @@ p {
     text-align: center
 }
 
-
-
-#understanding_button {
-    background-color: rgb(50, 190, 50);
-    display: block;
-    height: 100px;
-    width: 100px;
+button {
+    background-color: rgb(241, 216, 254);
     text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-}
-
-
-#okay_button {
-    background-color: rgb(240, 150, 50);
-    display:block;
-    height: 100px;
-    width: 100px;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    font-size: var(--medium-font-size);
-    cursor: pointer;
-    border: none;
-    transition: .3s all;
-}
-
-#confused_button {
-    background-color: rgb(190, 50, 50);
-    display: block;
-    height: 100px;
-    width: 100px;
     padding: 20px;
     border-radius: 10px;
     outline: none;
@@ -126,6 +81,21 @@ button:hover {
 button:hover:active {
     transform: translate(0, 1px);
 }
+
+#understanding_button {
+    background-color: rgb(50, 190, 50);
+}
+
+#okay_button {
+    background-color: rgb(240, 150, 50);
+
+}
+
+#confused_button {
+    background-color: rgb(190, 50, 50);
+}
+
+
 
 input[type="radio"] {
     appearance: none;
@@ -162,6 +132,7 @@ input[type="radio"]:checked::before {
     padding: 10px;
     gap: 20px;
     font-size: var(--medium-font-size);
+    align-items: center
 }
 
 .container_hori {
@@ -175,6 +146,8 @@ input[type="radio"]:checked::before {
     padding: 10px;
     gap: 20px;
     font-size: var(--medium-font-size);
+    height: 100px;
+    width: 100px;
 }
 
 .radio-selection {

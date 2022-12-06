@@ -38,8 +38,6 @@ function submit_response(uid, rating) {
     rating: rating,
     time: Timestamp.now(),
   };
-
-
   
   set(new_post_ref, session_entry)
 }
@@ -57,4 +55,28 @@ confused_button.onclick = () => {
   location.href = "../html/student_confused.html"
 }
 
-submit_response(UID, 3)
+if (localStorage.getItem("First_time") == "True"){
+  localStorage.setItem("First_time", "False")
+  submit_response(UID, 3)
+}
+
+function bad_boy(){
+
+}
+
+document.addEventListener("visibilitychange", () => {
+  let on_tab = document.visibilityState;
+  console.log(on_tab);
+
+  if (on_tab == "hidden"){
+    bad_boy()
+  }
+  if (on_tab == "visible"){
+    good_boy()
+  }
+})
+
+window.onresize = (event) => {
+  console.log(event)
+  console.log(window.innerHeight)
+}

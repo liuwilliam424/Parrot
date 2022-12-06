@@ -70,7 +70,7 @@ continue_button.onclick = () => {
     location.href = "html/student_home.html"
   }
 
-  if (localStorage.getItem("Role") == "Student") {
+  if (localStorage.getItem("Role") == "Teacher") {
     location.href = "html/teacher_home.html"
   }
 }
@@ -126,3 +126,5 @@ sign_out_button.onclick = () => {
     alert("Error: failed to sign out")
   });
 }
+
+localStorage.setItem("First_time", "True");
