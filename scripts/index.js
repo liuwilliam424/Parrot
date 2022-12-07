@@ -128,3 +128,5 @@ sign_out_button.onclick = () => {
 }
 
 localStorage.setItem("First_time", "True");
+localStorage.setItem("Window_height", window.innerHeight)
+localStorage.setItem("Window_width", window.innerWidth)

@@ -16,14 +16,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const database = getDatabase();
+const db = getDatabase();
 
 let session_code_box = document.querySelector('#code_enter')
 let session_button = document.querySelector('#code_button')
 
 function writeUserData(UID, name, role) {
     console.log("writing user data")
-    const db = getDatabase();
     set(ref(db, 'Users/' + UID), {
         name: name,
         role: role,

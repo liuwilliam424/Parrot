@@ -38,7 +38,7 @@ function submit_response(uid, rating) {
     rating: rating,
     time: Timestamp.now(),
   };
-  
+
   set(new_post_ref, session_entry)
 }
 
@@ -55,28 +55,48 @@ confused_button.onclick = () => {
   location.href = "../html/student_confused.html"
 }
 
-if (localStorage.getItem("First_time") == "True"){
+if (localStorage.getItem("First_time") == "True") {
   localStorage.setItem("First_time", "False")
   submit_response(UID, 3)
 }
 
-function bad_boy(){
+function bad_boy(uid) {
+  push(ref(database, '/Sessions/' + session_id + '/naughty_boys'), {
+    user_id: uid,
+    badness: "bad"
+  });
+}
 
+function good_boy(uid) {
+  push(ref(database, '/Sessions/' + session_id + '/naughty_boys'), {
+    user_id: uid,
+    badness: "good"
+  });
 }
 
 document.addEventListener("visibilitychange", () => {
   let on_tab = document.visibilityState;
   console.log(on_tab);
 
-  if (on_tab == "hidden"){
-    bad_boy()
+  if (on_tab == "hidden") {
+    bad_boy(UID)
   }
-  if (on_tab == "visible"){
-    good_boy()
+  if (on_tab == "visible") {
+    good_boy(UID)
   }
 })
 
 window.onresize = (event) => {
-  console.log(event)
   console.log(window.innerHeight)
+  console.log(window.innerWidth)
+
+  if (window.innerHeight != localStorage.getItem("Window_height")) {
+    bad_boy(UID)
+  }
+  if (window.innerWidth != localStorage.getItem("Window_width")) {
+    bad_boy(UID)
+  }
+  if (window.innerHeight == localStorage.getItem("Window_height") && window.innerWidth == localStorage.getItem("Window_width")) {
+    good_boy(UID)
+  }
 }

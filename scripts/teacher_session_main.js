@@ -28,11 +28,10 @@ let num_okay = 0
 let num_understanding = 0
 let bod = document.querySelector('body')
 
-let interval1 = 2;
-let interval2 = 4;
-let interval3 = 6;
-let interval4 = 8;
-let interval5 = 10;
+let interval1 = 3;
+let interval2 = 5;
+let interval3 = 10;
+let interval4 = 15;
 
 var xValues = ["Confused", "Okay", "Understanding"];
 var yValues = [num_confused, num_okay, num_understanding, 0];
@@ -79,7 +78,7 @@ const dbRef = ref(database);
 const responses_ref = ref(database, `Sessions/${sessionID}/responses`);
 
 onValue(responses_ref, (snapshot) => {
-    console.log("data was changed")
+    console.log("data was submitted by student")
     let recent_data = new Map();
     get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -107,11 +106,10 @@ onValue(responses_ref, (snapshot) => {
             )
 
 
-            console.log(num_confused, num_okay, num_understanding)
+            // console.log(num_confused, num_okay, num_understanding)
             confused.innerHTML = num_confused
             okay.innerHTML = num_okay
             understanding.innerHTML = num_understanding
-
 
             chart.data.datasets[0].data = [num_confused, num_okay, num_understanding, 0]
             chart.update()
@@ -124,19 +122,18 @@ onValue(responses_ref, (snapshot) => {
             num_confused = num_okay = num_understanding = 0
 
             function blink() {
-                console.log(bod.style.outline)
+                // console.log(bod.style.outline)
                 blinks += 1
-                console.log(blinks)
+                // console.log(blinks)
                 if (bod.style.getPropertyValue('outline')) {
                     bod.style.outline = "";
-                    console.log("turned white")
+                    // console.log("turned white")
                 }
                 else if (bod.style.getPropertyValue('outline') == "") {
                     bod.style.outline = "red solid 60px";
-                    console.log("turned red")
+                    // console.log("turned red")
                 }
                 if (blinks >= 10) {
-                    console.log(blinks)
                     stopBlink()
                 }
             }
@@ -168,3 +165,76 @@ onValue(responses_ref, (snapshot) => {
 
 });
 
+let users = new Map()
+get(child(dbRef, `Users/`)).then((snapshot) => {
+    (snapshot.forEach(
+        function (item) {
+            users.set(item.key, item.val()['name'])
+        }
+    ))
+}).catch((error) => {
+    console.error(error);
+  });
+
+const naughty_boys = ref(database, `Sessions/${sessionID}/naughty_boys`);
+let badnesses = new Map();
+let badness_current = ""
+let badness_prev = ""
+let should_toast = new Map();
+let toasts = new Map();
+
+let first = false;
+
+onValue(naughty_boys, (snapshot) => {
+    if (snapshot.exists()) {
+        (snapshot.forEach(
+            function (datum) {
+                let user_id = datum.val()['user_id']
+                let badness = datum.val()['badness']
+
+                badness_current = badness
+                badness_prev = badnesses.get(user_id)
+
+                badnesses.set(user_id, badness)
+                if (badness_current == "bad" && badness_prev == "good") {
+                    console.log("turned bad")
+                    should_toast.set(user_id, true)
+                }
+                if (badness_current == "good" && badness_prev == "bad") {
+                    console.log("turned good")
+                    should_toast.set(user_id, false)
+                }
+            }
+        ));
+    }
+    if (first){
+    should_toast.forEach(
+        function (value, key) {
+            let name = users.get(key)
+            if (value) {
+                console.log("got off tab")
+
+                let temp = Toastify({
+                    text: `${name} isn't on his tab!`,
+                    duration: -1,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "left", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "blue"
+                    },
+                })
+                toasts.set(key, temp)
+                temp.showToast();
+            }
+            else if (!value){
+                console.log("back on tab");
+                let temp_new = toasts.get(key);
+                temp_new.hideToast();
+            }
+        }
+    )
+    }
+    first=true
+});
