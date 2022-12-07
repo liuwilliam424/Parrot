@@ -25,6 +25,8 @@ let UID = localStorage.getItem("UID")
 let understanding_button = document.querySelector("#understanding_button")
 let okay_button = document.querySelector("#okay_button")
 let confused_button = document.querySelector("#confused_button")
+let should_be_here = true
+
 
 function submit_response(uid, rating) {
   console.log("response submitting")
@@ -52,6 +54,7 @@ okay_button.onclick = () => {
 
 confused_button.onclick = () => {
   submit_response(UID, 1)
+  should_be_here = false
   location.href = "../html/student_confused.html"
 }
 
@@ -77,26 +80,27 @@ function good_boy(uid) {
 document.addEventListener("visibilitychange", () => {
   let on_tab = document.visibilityState;
   console.log(on_tab);
-
-  if (on_tab == "hidden") {
-    bad_boy(UID)
-  }
-  if (on_tab == "visible") {
-    good_boy(UID)
+  if (should_be_here) {
+    if (on_tab == "hidden") {
+      bad_boy(UID)
+    }
+    if (on_tab == "visible") {
+      good_boy(UID)
+    }
   }
 })
 
-window.onresize = (event) => {
-  console.log(window.innerHeight)
-  console.log(window.innerWidth)
+// window.onresize = (event) => {
+//   console.log(window.innerHeight)
+//   console.log(window.innerWidth)
 
-  if (window.innerHeight != localStorage.getItem("Window_height")) {
-    bad_boy(UID)
-  }
-  if (window.innerWidth != localStorage.getItem("Window_width")) {
-    bad_boy(UID)
-  }
-  if (window.innerHeight == localStorage.getItem("Window_height") && window.innerWidth == localStorage.getItem("Window_width")) {
-    good_boy(UID)
-  }
-}
+//   if (window.innerHeight != localStorage.getItem("Window_height")) {
+//     bad_boy(UID)
+//   }
+//   if (window.innerWidth != localStorage.getItem("Window_width")) {
+//     bad_boy(UID)
+//   }
+//   if (window.innerHeight == localStorage.getItem("Window_height") && window.innerWidth == localStorage.getItem("Window_width")) {
+//     good_boy(UID)
+//   }
+// }

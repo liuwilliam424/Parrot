@@ -150,6 +150,7 @@ onValue(responses_ref, (snapshot) => {
                 clearInterval(nIntervId);
                 // release our intervalID from the variable
                 nIntervId = null;
+                bod.style.outline = "";
             }
 
             useBlink()
@@ -174,7 +175,7 @@ get(child(dbRef, `Users/`)).then((snapshot) => {
     ))
 }).catch((error) => {
     console.error(error);
-  });
+});
 
 const naughty_boys = ref(database, `Sessions/${sessionID}/naughty_boys`);
 let badnesses = new Map();
@@ -183,7 +184,7 @@ let badness_prev = ""
 let should_toast = new Map();
 let toasts = new Map();
 
-let first = false;
+let first = true;
 
 onValue(naughty_boys, (snapshot) => {
     if (snapshot.exists()) {
@@ -197,44 +198,89 @@ onValue(naughty_boys, (snapshot) => {
 
                 badnesses.set(user_id, badness)
                 if (badness_current == "bad" && badness_prev == "good") {
-                    console.log("turned bad")
-                    should_toast.set(user_id, true)
+                    // console.log("turned bad")
+                    should_toast.set(user_id, "turned bad")
                 }
                 if (badness_current == "good" && badness_prev == "bad") {
-                    console.log("turned good")
-                    should_toast.set(user_id, false)
+                    // console.log("turned good")
+                    should_toast.set(user_id, "turned good")
                 }
+
             }
         ));
     }
-    if (first){
-    should_toast.forEach(
-        function (value, key) {
-            let name = users.get(key)
-            if (value) {
-                console.log("got off tab")
+    if (!first) {
+        should_toast.forEach(
+            function (value, key) {
+                let name = users.get(key)
+                if (value == "turned bad") {
+                    console.log("got off tab")
 
-                let temp = Toastify({
-                    text: `${name} isn't on his tab!`,
-                    duration: -1,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "left", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "blue"
-                    },
-                })
-                toasts.set(key, temp)
-                temp.showToast();
+                    let temp = Toastify({
+                        text: `${name} isn't on their tab!`,
+                        duration: -1,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "left", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "blue"
+                        },
+                    })
+                    if (!toasts.has(key)) {
+                        temp.showToast();
+                        toasts.set(key, temp)
+                    }
+                }
+                else if (value == "turned good") {
+                    console.log("back on tab");
+                    let temp_new = toasts.get(key);
+                    temp_new.hideToast();
+                    toasts.delete(key)
+                }
             }
-            else if (!value){
-                console.log("back on tab");
-                let temp_new = toasts.get(key);
-                temp_new.hideToast();
-            }
-        }
-    )
+        )
     }
-    first=true
+    first = false
+});
+
+const complaints_ref = ref(database, `Sessions/${sessionID}/complaints`);
+let users_complaining = new Map()
+
+onValue(complaints_ref, (snapshot) => {
+    console.log("happened")
+    if (snapshot.exists()) {
+        (snapshot.forEach(
+            function (datum) {
+                let user_id = datum.val()['user_id']
+                let text = datum.val()['text']
+                users_complaining.set(user_id, text)
+            }
+        ));
+    }
+    if (!first) {
+        console.log("joe")
+        users_complaining.forEach(
+            function (value, key) {
+                let name = users.get(key)
+                
+
+                    let temp = Toastify({
+                        text: value,
+                        duration: 30000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "purple"
+                        },
+                    })
+                    temp.showToast();
+                    users_complaining.delete(key)
+        
+            }
+        )
+    }
+    first = false
 });
