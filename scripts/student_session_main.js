@@ -45,10 +45,29 @@ function submit_response(uid, rating) {
 }
 
 understanding_button.onclick = () => {
-  submit_response(UID, 3)
+  understanding_button.style.backgroundColor = 'rgb(28, 73, 28)';
+  understanding_button.style.border="solid 2px"
+
+  okay_button.style.backgroundColor = 'rgb(233, 126, 5)';
+  okay_button.style.border = "none";
+
+  confused_button.style.backgroundColor = 'rgb(190, 50, 50)';
+  confused_button.style.border = "none";
+
+  submit_response(UID, 3);
 }
 
 okay_button.onclick = () => {
+  okay_button.style.backgroundColor = 'rgb(195, 107, 6)';
+  okay_button.style.border="solid 2px";
+
+
+  understanding_button.style.backgroundColor = 'rgb(50, 190, 50)';
+  understanding_button.style.border = "none";
+
+  confused_button.style.backgroundColor = 'rgb(190, 50, 50)'
+  confused_button.style.border = "none";
+
   submit_response(UID, 2)
 }
 
@@ -60,6 +79,9 @@ confused_button.onclick = () => {
 
 if (localStorage.getItem("First_time") == "True") {
   localStorage.setItem("First_time", "False")
+  confused_button.style.backgroundColor = 'rgb(190, 50, 50)';
+  confused_button.style.border = 'none'
+
   submit_response(UID, 3)
 }
 

@@ -28,18 +28,12 @@ let num_okay = 0
 let num_understanding = 0
 let bod = document.querySelector('body')
 
-let interval1 = 3;
-let interval2 = 5;
-let interval3 = 10;
-let interval4 = 15;
-
 var xValues = ["Confused", "Okay", "Understanding"];
 var yValues = [num_confused, num_okay, num_understanding, 0];
 var barColors = ["red", "orange", "green"];
 
 let blinks = 0;
 let nIntervId;
-
 
 var chart = new Chart("myChart", {
     type: "bar",
@@ -76,6 +70,20 @@ session_code.innerHTML = sessionID
 
 const dbRef = ref(database);
 const responses_ref = ref(database, `Sessions/${sessionID}/responses`);
+
+let users = new Map()
+
+get(child(dbRef, `Users/`)).then((snapshot) => {
+    (snapshot.forEach(
+        function (item) {
+            users.set(item.key, item.val()['name'])
+        }
+    ))
+}).catch((error) => {
+    console.error(error);
+});
+
+let confused_ori, okay_ori, understanding_ori;
 
 onValue(responses_ref, (snapshot) => {
     console.log("data was submitted by student")
@@ -115,10 +123,6 @@ onValue(responses_ref, (snapshot) => {
             chart.update()
 
 
-            let confused_ori = num_confused;
-            let okay_ori = num_okay;
-            let understanding_ori = num_understanding;
-
             num_confused = num_okay = num_understanding = 0
 
             function blink() {
@@ -153,8 +157,36 @@ onValue(responses_ref, (snapshot) => {
                 bod.style.outline = "";
             }
 
-            useBlink()
-            blinks = 0
+            let total = num_confused + num_okay + num_understanding;
+
+            let threshold1 = parseInt(0.25 * total)
+            let threshold2 = parseInt(0.5 * total)
+            let threshold3 = parseInt(0.75 * total)
+
+            console.log(threshold1)
+
+            if (num_confused == threshold1 && confused_ori != threshold1) {
+                useBlink()
+                blinks = 0
+            }
+
+            if (num_confused == threshold2 && confused_ori != threshold2) {
+                useBlink()
+                blinks = 0
+            }
+
+            if (num_confused == threshold3 && confused_ori != threshold3) {
+                useBlink()
+                blinks = 0
+            }
+
+            confused_ori = num_confused;
+            okay_ori = num_okay;
+            understanding_ori = num_understanding;
+
+            num_confused = num_okay = num_understanding = 0
+
+
 
         } else {
             console.log("No data available");
@@ -166,16 +198,6 @@ onValue(responses_ref, (snapshot) => {
 
 });
 
-let users = new Map()
-get(child(dbRef, `Users/`)).then((snapshot) => {
-    (snapshot.forEach(
-        function (item) {
-            users.set(item.key, item.val()['name'])
-        }
-    ))
-}).catch((error) => {
-    console.error(error);
-});
 
 const naughty_boys = ref(database, `Sessions/${sessionID}/naughty_boys`);
 let badnesses = new Map();
@@ -246,6 +268,7 @@ onValue(naughty_boys, (snapshot) => {
 
 const complaints_ref = ref(database, `Sessions/${sessionID}/complaints`);
 let users_complaining = new Map()
+let complaints_display = new Map()
 
 onValue(complaints_ref, (snapshot) => {
     console.log("happened")
@@ -263,22 +286,25 @@ onValue(complaints_ref, (snapshot) => {
         users_complaining.forEach(
             function (value, key) {
                 let name = users.get(key)
-                
 
-                    let temp = Toastify({
-                        text: value,
-                        duration: 30000,
-                        close: true,
-                        gravity: "top", // `top` or `bottom`
-                        position: "right", // `left`, `center` or `right`
-                        stopOnFocus: true, // Prevents dismissing of toast on hover
-                        style: {
-                            background: "purple"
-                        },
-                    })
+
+                let temp = Toastify({
+                    key: key,
+                    text: value,
+                    duration: 30000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "purple"
+                    },
+                    callback: function () { complaints_display.delete(key) }
+                })
+                if (!complaints_display.has(key))
                     temp.showToast();
-                    users_complaining.delete(key)
-        
+                complaints_display.set(key, temp)
+
             }
         )
     }

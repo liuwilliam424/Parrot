@@ -87,12 +87,13 @@ button:hover:active {
 }
 
 #okay_button {
-    background-color: rgb(240, 150, 50);
+    background-color: rgb(233, 126, 5);
 
 }
 
 #confused_button {
-    background-color: rgb(190, 50, 50);
+    background-color: rgb(129, 41, 41);
+    border: solid 2px;
 }
 
 
