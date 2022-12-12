@@ -12,6 +12,7 @@ body {
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     outline-offset: -50px;
+    min-height: 100vh;
 } 
 
 h3 {
@@ -46,7 +47,6 @@ input[type="text"]{
     text-align: center;
     outline: none;
     font-size: var(--medium-font-size);
-    cursor: pointer;
     transition: .3s all;
 }
 
@@ -134,6 +134,12 @@ input[type="radio"]:checked::before {
     gap: 20px;
     font-size: var(--medium-font-size);
     align-items: center
+}
+
+.button-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
 }
 
 .container_hori {

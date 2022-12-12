@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 let end_button = document.querySelector("#end_session_button")
-end_button.onclick = () => { location.href = "/html/teacher_analytics.html" }
+end_button.onclick = () => { location.href = "/html/teacher_end.html" }
 
 let confused = document.querySelector('#confused')
 let okay = document.querySelector('#okay')
@@ -123,8 +123,6 @@ onValue(responses_ref, (snapshot) => {
             chart.update()
 
 
-            num_confused = num_okay = num_understanding = 0
-
             function blink() {
                 // console.log(bod.style.outline)
                 blinks += 1
@@ -163,9 +161,11 @@ onValue(responses_ref, (snapshot) => {
             let threshold2 = parseInt(0.5 * total)
             let threshold3 = parseInt(0.75 * total)
 
-            console.log(threshold1)
-
+            // console.log("threshold1 " + threshold1)
+            // console.log("num_confused " + num_confused)
+            // console.log("confused_ori " + confused_ori)
             if (num_confused == threshold1 && confused_ori != threshold1) {
+                console.log("used blink")
                 useBlink()
                 blinks = 0
             }
@@ -235,6 +235,10 @@ onValue(naughty_boys, (snapshot) => {
         should_toast.forEach(
             function (value, key) {
                 let name = users.get(key)
+                if (!name) {
+                    console.log("User ID Failure")
+                    return false
+                }
                 if (value == "turned bad") {
                     console.log("got off tab")
 
@@ -266,47 +270,80 @@ onValue(naughty_boys, (snapshot) => {
     first = false
 });
 
-const complaints_ref = ref(database, `Sessions/${sessionID}/complaints`);
+
+const complaints_ref = ref(database, `Sessions/${sessionID}/complaints/new`);
 let users_complaining = new Map()
 let complaints_display = new Map()
 
-onValue(complaints_ref, (snapshot) => {
+function delete_user_complaints(id) {
+    console.log("deleting user complaints...")
+    get(child(dbRef, `Sessions/${sessionID}/complaints`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            (snapshot.forEach(
+                function (datum) {
+                    let response = datum.key
+                    if (datum.val()['user_id'] == id)
+                        update(ref(database, `Sessions/${sessionID}/complaints/${response}`), {
+                            text: null,
+                        });
+                }
+            ));
+
+        } else {
+            console.log("No data available");
+        }
+    })
+    users_complaining.forEach(function(value, key){
+        if (key == id){
+            users_complaining.delete(id)
+        }
+    });
+}
+
+onValue(complaints_ref, () => {
     console.log("happened")
-    if (snapshot.exists()) {
-        (snapshot.forEach(
-            function (datum) {
-                let user_id = datum.val()['user_id']
-                let text = datum.val()['text']
-                users_complaining.set(user_id, text)
-            }
-        ));
-    }
-    if (!first) {
-        console.log("joe")
-        users_complaining.forEach(
-            function (value, key) {
-                let name = users.get(key)
+    get(child(dbRef, `Sessions/${sessionID}/complaints`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            (snapshot.forEach(
+                function (datum) {
+                    let user_id = datum.val()['user_id']
+                    let text = datum.val()['text']
+                    if (text) {
+                        users_complaining.set(user_id, text)
+                    }
+                }
+            ));
+        }
+        if (!first) {
+            console.log("joe")
+            users_complaining.forEach(
+                function (value, key) {
+                    let name = users.get(key)
 
+                    let temp = Toastify({
+                        key: key,
+                        text: value,
+                        duration: 30000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "purple"
+                        },
+                        callback: function () {
+                            complaints_display.delete(key);
+                            delete_user_complaints(key)
+                        }
+                    })
+                    if (!complaints_display.get(key))
+                        temp.showToast();
+                    complaints_display.set(key, temp)
 
-                let temp = Toastify({
-                    key: key,
-                    text: value,
-                    duration: 30000,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "purple"
-                    },
-                    callback: function () { complaints_display.delete(key) }
-                })
-                if (!complaints_display.has(key))
-                    temp.showToast();
-                complaints_display.set(key, temp)
-
-            }
-        )
-    }
+                }
+            )
+        }
+    })
     first = false
 });
+

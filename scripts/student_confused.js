@@ -28,12 +28,17 @@ let example = document.querySelector('#example')
 let slow = document.querySelector('#slow')
 let repeat = document.querySelector('#repeat')
 let comment = document.querySelector('#comment')
+let skip = document.querySelector('#skip')
 
 example.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
         text: "Can you give an example?"
-    }).then(function () { location.href = "student_session_main.html" }
+    }).then(function () {
+        push(ref(database, '/Sessions/' + session_id + '/complaints/new'), {
+            it: "works"
+        }).then(function () { location.href = "student_session_main.html" })
+    }
     )
 }
 
@@ -41,7 +46,11 @@ slow.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
         text: "Can you slow down?"
-    }).then(function () { location.href = "student_session_main.html" }
+    }).then(function () {
+        push(ref(database, '/Sessions/' + session_id + '/complaints/new'), {
+            it: "works"
+        }).then(function () { location.href = "student_session_main.html" })
+    }
     )
 }
 
@@ -49,8 +58,16 @@ repeat.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
         text: "Can you repeat that?"
-    }).then(function () { location.href = "student_session_main.html" }
+    }).then(function () {
+        push(ref(database, '/Sessions/' + session_id + '/complaints/new'), {
+            it: "works"
+        }).then(function () { location.href = "student_session_main.html" })
+    }
     )
+}
+
+skip.onclick = () => {
+    location.href = "student_session_main.html"
 }
 
 comment
