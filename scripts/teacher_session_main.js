@@ -164,18 +164,18 @@ onValue(responses_ref, (snapshot) => {
             // console.log("threshold1 " + threshold1)
             // console.log("num_confused " + num_confused)
             // console.log("confused_ori " + confused_ori)
-            if (num_confused == threshold1 && confused_ori != threshold1) {
+            if (num_confused == threshold1 && confused_ori < threshold1) {
                 console.log("used blink")
                 useBlink()
                 blinks = 0
             }
 
-            if (num_confused == threshold2 && confused_ori != threshold2) {
+            if (num_confused == threshold2 && confused_ori < threshold2) {
                 useBlink()
                 blinks = 0
             }
 
-            if (num_confused == threshold3 && confused_ori != threshold3) {
+            if (num_confused == threshold3 && confused_ori < threshold3) {
                 useBlink()
                 blinks = 0
             }
