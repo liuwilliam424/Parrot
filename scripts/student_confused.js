@@ -75,10 +75,14 @@ comment
         event.preventDefault();
         if (event.keyCode === 13) {
             let user_comments = comment.value
+            console.log(user_comments)
             push(ref(database, '/Sessions/' + session_id + '/complaints'), {
                 user_id: uid,
                 text: user_comments
-            }).then(function () { location.href = "student_session_main.html" }
+            }).then(function () {
+                push(ref(database, '/Sessions/' + session_id + '/complaints/new'), {
+                    it: "works"
+                }).then(function () { location.href = "student_session_main.html" })
+            }
             )
-        }
-    });
+        }})
