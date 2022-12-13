@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 let end_button = document.querySelector("#end_session_button")
-end_button.onclick = () => { location.href = "/html/teacher_analytics.html" }
+end_button.onclick = () => { location.href = "../html/teacher_analytics.html" }
 
 let confused = document.querySelector('#confused')
 let okay = document.querySelector('#okay')
