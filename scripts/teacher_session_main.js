@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 let end_button = document.querySelector("#end_session_button")
-end_button.onclick = () => { location.href = "/html/teacher_end.html" }
+end_button.onclick = () => { location.href = "/html/teacher_analytics.html" }
 
 let confused = document.querySelector('#confused')
 let okay = document.querySelector('#okay')
@@ -27,6 +27,8 @@ let num_confused = 0
 let num_okay = 0
 let num_understanding = 0
 let bod = document.querySelector('body')
+
+let tracking = document.querySelector('#tracking')
 
 var xValues = ["Confused", "Okay", "Understanding"];
 var yValues = [num_confused, num_okay, num_understanding, 0];
@@ -208,66 +210,84 @@ let toasts = new Map();
 
 let first = true;
 
-onValue(naughty_boys, (snapshot) => {
-    if (snapshot.exists()) {
-        (snapshot.forEach(
-            function (datum) {
-                let user_id = datum.val()['user_id']
-                let badness = datum.val()['badness']
-
-                badness_current = badness
-                badness_prev = badnesses.get(user_id)
-
-                badnesses.set(user_id, badness)
-                if (badness_current == "bad" && badness_prev == "good") {
-                    // console.log("turned bad")
-                    should_toast.set(user_id, "turned bad")
-                }
-                if (badness_current == "good" && badness_prev == "bad") {
-                    // console.log("turned good")
-                    should_toast.set(user_id, "turned good")
-                }
-
-            }
-        ));
+let track = false
+tracking.onclick = () => {
+    track = !track;
+    if (track) {
+        tracking.innerHTML = 'Student Activity Tracking Enabled'
+        tracking.style.backgroundColor = 'darkgreen'
     }
-    if (!first) {
-        should_toast.forEach(
-            function (value, key) {
-                let name = users.get(key)
-                if (!name) {
-                    console.log("User ID Failure")
-                    return false
-                }
-                if (value == "turned bad") {
-                    console.log("got off tab")
+    else if (!track) {
+        tracking.innerHTML = 'Student Activity Tracking Disabled'
+        tracking.style.backgroundColor = 'darkred'
+    }
+    console.log(track)
+}
 
-                    let temp = Toastify({
-                        text: `${name} isn't on their tab!`,
-                        duration: -1,
-                        close: true,
-                        gravity: "top", // `top` or `bottom`
-                        position: "left", // `left`, `center` or `right`
-                        stopOnFocus: true, // Prevents dismissing of toast on hover
-                        style: {
-                            background: "blue"
-                        },
-                    })
-                    if (!toasts.has(key)) {
-                        temp.showToast();
-                        toasts.set(key, temp)
+onValue(naughty_boys, (snapshot) => {
+    if (track) {
+        if (snapshot.exists()) {
+            (snapshot.forEach(
+                function (datum) {
+                    let user_id = datum.val()['user_id']
+                    let badness = datum.val()['badness']
+
+                    badness_current = badness
+                    badness_prev = badnesses.get(user_id)
+
+                    badnesses.set(user_id, badness)
+                    if (badness_current == "bad" && badness_prev == "good") {
+                        console.log("turned bad")
+                        should_toast.set(user_id, "turned bad")
+                    }
+                    if (badness_current == "good" && badness_prev == "bad") {
+                        console.log("turned good")
+                        should_toast.set(user_id, "turned good")
+                    }
+
+                }
+            ));
+        }
+        if (!first) {
+            should_toast.forEach(
+                function (value, key) {
+                    let name = users.get(key)
+                    if (!name) {
+                        console.log("User ID Failure")
+                        return false
+                    }
+                    if (value == "turned bad") {
+                        console.log("got off tab")
+
+                        let temp = Toastify({
+                            text: `${name} isn't on their tab!`,
+                            duration: -1,
+                            close: true,
+                            gravity: "top", // `top` or `bottom`
+                            position: "left", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "blue"
+                            },
+                        })
+                        if (!toasts.has(key)) {
+
+                            temp.showToast();
+
+                            toasts.set(key, temp)
+                        }
+                    }
+                    else if (value == "turned good") {
+                        console.log("back on tab");
+                        let temp_new = toasts.get(key);
+                        temp_new.hideToast();
+                        toasts.delete(key)
                     }
                 }
-                else if (value == "turned good") {
-                    console.log("back on tab");
-                    let temp_new = toasts.get(key);
-                    temp_new.hideToast();
-                    toasts.delete(key)
-                }
-            }
-        )
+            )
+        }
+        first = false
     }
-    first = false
 });
 
 
@@ -293,8 +313,8 @@ function delete_user_complaints(id) {
             console.log("No data available");
         }
     })
-    users_complaining.forEach(function(value, key){
-        if (key == id){
+    users_complaining.forEach(function (value, key) {
+        if (key == id) {
             users_complaining.delete(id)
         }
     });

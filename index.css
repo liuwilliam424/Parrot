@@ -13,7 +13,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     outline-offset: -50px;
     min-height: 100vh;
-} 
+}
 
 h3 {
     font-weight: 300;
@@ -39,7 +39,12 @@ h2 {
     color: green
 }
 
-input[type="text"]{
+#tracking {
+    color: white;
+    background-color: darkred
+}
+
+input[type="text"] {
     display: flex;
     border-color: black;
     padding: 20px;
@@ -136,7 +141,7 @@ input[type="radio"]:checked::before {
     align-items: center
 }
 
-.button-grid{
+.button-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
@@ -167,3 +172,22 @@ input[type="radio"]:checked::before {
     display: flex;
     width: 25em
 }
+
+table {
+    color: black;
+    border-collapse:collapse;
+    text-align:center
+}
+
+tr {
+    border: solid 5px darkblue
+}
+
+th{
+    padding:10px;
+}
+
+caption{
+    padding:10px
+}
+
