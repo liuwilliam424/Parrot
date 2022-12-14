@@ -139,4 +139,4 @@ get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
 });
 
 let end_button = document.querySelector("#end_session_button")
-end_button.onclick = () => { location.href = "/html/teacher_end.html" }
+end_button.onclick = () => { location.href = "../html/teacher_end.html" }
