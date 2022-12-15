@@ -154,7 +154,7 @@ onValue(responses_ref, (snapshot) => {
                 clearInterval(nIntervId);
                 // release our intervalID from the variable
                 nIntervId = null;
-                bod.style.outline = "red solid 60px";
+                bod.style.outline = "";
             }
 
             let total = num_confused + num_okay + num_understanding;
