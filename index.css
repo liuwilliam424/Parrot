@@ -131,8 +131,6 @@ input[type="radio"]:checked::before {
 
 .container_vert {
     display: flex;
-    max-width: 800px;
-    max-height: 800px;
     flex-direction: column;
     box-shadow: turquoise;
     padding: 10px;
@@ -149,8 +147,6 @@ input[type="radio"]:checked::before {
 
 .container_hori {
     display: flex;
-    max-width: 800px;
-    max-height: 100px;
     align-items: center;
     justify-content: center;
     flex-direction: row;

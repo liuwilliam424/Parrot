@@ -137,7 +137,7 @@ onValue(responses_ref, (snapshot) => {
                     bod.style.outline = "red solid 60px";
                     // console.log("turned red")
                 }
-                if (blinks >= 10) {
+                if (blinks >= 20) {
                     stopBlink()
                 }
             }
@@ -154,12 +154,12 @@ onValue(responses_ref, (snapshot) => {
                 clearInterval(nIntervId);
                 // release our intervalID from the variable
                 nIntervId = null;
-                bod.style.outline = "";
+                bod.style.outline = "red solid 60px";
             }
 
             let total = num_confused + num_okay + num_understanding;
 
-            let threshold1 = parseInt(0.25 * total)
+            let threshold1 = 1
             let threshold2 = parseInt(0.5 * total)
             let threshold3 = parseInt(0.75 * total)
 
@@ -225,6 +225,8 @@ tracking.onclick = () => {
 }
 
 onValue(naughty_boys, (snapshot) => {
+    console.log("detected naughty boy")
+    console.log(track)
     if (track) {
         if (snapshot.exists()) {
             (snapshot.forEach(
@@ -253,6 +255,7 @@ onValue(naughty_boys, (snapshot) => {
                 function (value, key) {
                     let name = users.get(key)
                     if (!name) {
+                        console.log(key)
                         console.log("User ID Failure")
                         return false
                     }
@@ -280,7 +283,9 @@ onValue(naughty_boys, (snapshot) => {
                     else if (value == "turned good") {
                         console.log("back on tab");
                         let temp_new = toasts.get(key);
-                        temp_new.hideToast();
+                        if (temp_new){
+                            temp_new.hideToast();
+                        }
                         toasts.delete(key)
                     }
                 }
@@ -343,7 +348,7 @@ onValue(complaints_ref, () => {
                     let temp = Toastify({
                         key: key,
                         text: value,
-                        duration: 30000,
+                        duration: 90000,
                         close: true,
                         gravity: "top", // `top` or `bottom`
                         position: "right", // `left`, `center` or `right`
