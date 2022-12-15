@@ -23,7 +23,7 @@ let sessionID = localStorage.getItem("SessionID")
 let vert = document.querySelector('.container_vert')
 
 
-function generateTable( user, user_data) {
+function generateTable(user, user_data) {
     // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
     const tblBody = document.createElement("tbody");
@@ -48,49 +48,54 @@ function generateTable( user, user_data) {
 
     // creating all cells
     user_data.forEach(
-    function (datum) {
-      // creates a table row
-      const row = document.createElement("tr");
-    
-      let time_raw = datum[0]
-      let rating = datum[1]
+        function (datum) {
+            // creates a table row
+            const row = document.createElement("tr");
 
-      let date = new Date(time_raw*1000)
-      let hours = date.getHours()
-      hours = hours%12
-      let minutes = date.getMinutes()
-      let time = `${hours}:${minutes}`
+            let time_raw = datum[0]
+            let rating = datum[1]
 
-      for (let i = 0; i < 2; i++) {
-        // Create a <td> element and a text node, make the text
-        // node the contents of the <td>, and put the <td> at
-        // the end of the table row
-        if (i==0){
-            const cell = document.createElement("td");
-            const cellText = document.createTextNode(time);
-            cell.appendChild(cellText);
-            row.appendChild(cell);
-        }
-        if (i==1){
-            const cell = document.createElement("td");
-            const cellText = document.createTextNode(rating);
-            cell.appendChild(cellText);
-            row.appendChild(cell);
-        }
-        
-      }
-  
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
-    })
-    
+            let date = new Date(time_raw * 1000)
+            let hours = date.getHours()
+            hours = hours % 12
+            if (hours == 0) {
+                hours = 12
+            }
+            hours.toString().padStart(2, '0')
+            minutes.toString().padStart(2,'0')
+            let minutes = date.getMinutes()
+            let time = `${hours}:${minutes}`
+
+            for (let i = 0; i < 2; i++) {
+                // Create a <td> element and a text node, make the text
+                // node the contents of the <td>, and put the <td> at
+                // the end of the table row
+                if (i == 0) {
+                    const cell = document.createElement("td");
+                    const cellText = document.createTextNode(time);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                }
+                if (i == 1) {
+                    const cell = document.createElement("td");
+                    const cellText = document.createTextNode(rating);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                }
+
+            }
+
+            // add the row to the end of the table body
+            tblBody.appendChild(row);
+        })
+
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
     // appends <table> into <body>
     vert.appendChild(tbl);
     // // sets the border attribute of tbl to '2'
     // tbl.setAttribute("border", "2");
-  }
+}
 
 let recent_data = new Map();
 
@@ -107,28 +112,29 @@ get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
                 let UID = datum.val()['UID']
                 let rating = datum.val()['rating']
                 let time = datum.val()['time']['seconds']
-                
+
                 let data_for_user = recent_data.get(UID)
-                data_for_user.push([time,rating])
+                data_for_user.push([time, rating])
 
             }
         ));
-            console.log(recent_data)
-            let users = new Map()
+        console.log(recent_data)
+        let users = new Map()
 
-            get(child(dbRef, `Users/`)).then((snapshot) => {
-                (snapshot.forEach(
-                    function (item) {
-                        users.set(item.key, item.val()['name'])
-                        console.log(users)
+        get(child(dbRef, `Users/`)).then((snapshot) => {
+            (snapshot.forEach(
+                function (item) {
+                    users.set(item.key, item.val()['name'])
+                    // console.log(users)
+                }
+            )).then(
+                recent_data.forEach(
+                    function (rating, user) {
+                        // console.log(users);
+                        generateTable(users.get(user), rating)
                     }
-                )).then(
-                    recent_data.forEach(
-                    function joe(rating, user){ 
-                        console.log(users);
-                        generateTable(users.get(user), rating)}
-                        ))
-            })
+                )).catch((error) => console.log(error))
+        }).catch((error) => console.log(error))
 
     } else {
         console.log("No data available");

@@ -210,7 +210,7 @@ let toasts = new Map();
 
 let first = true;
 
-let track = false
+let track = true
 tracking.onclick = () => {
     track = !track;
     if (track) {

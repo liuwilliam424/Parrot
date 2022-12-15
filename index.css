@@ -41,7 +41,8 @@ h2 {
 
 #tracking {
     color: white;
-    background-color: darkred
+    background-color: darkgreen;
+    margin: 0px;
 }
 
 input[type="text"] {
@@ -199,6 +200,3 @@ caption{
     margin:0px;
 }
 
-#tracking{
-    margin:0px;
-}
