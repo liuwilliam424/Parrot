@@ -137,7 +137,7 @@ onValue(responses_ref, (snapshot) => {
                     bod.style.outline = "red solid 60px";
                     // console.log("turned red")
                 }
-                if (blinks >= 20) {
+                if (blinks >= 30) {
                     stopBlink()
                 }
             }
@@ -209,25 +209,27 @@ let should_toast = new Map();
 let toasts = new Map();
 
 let first = true;
+console.log("yes first")
 
 let track = true
 tracking.onclick = () => {
+    location.reload()
     track = !track;
-    if (track) {
-        tracking.innerHTML = 'Student Activity Tracking Enabled'
-        tracking.style.backgroundColor = 'darkgreen'
-    }
-    else if (!track) {
-        tracking.innerHTML = 'Student Activity Tracking Disabled'
-        tracking.style.backgroundColor = 'darkred'
-    }
+    // if (track) {
+    //     tracking.innerHTML = 'Student Activity Tracking Enabled'
+    //     tracking.style.backgroundColor = 'darkgreen'
+    // }
+    // else if (!track) {
+    //     tracking.innerHTML = 'Student Activity Tracking Disabled'
+    //     tracking.style.backgroundColor = 'darkred'
+    // }
     console.log(track)
 }
 
 onValue(naughty_boys, (snapshot) => {
     console.log("detected naughty boy")
-    console.log(track)
-    if (track) {
+    // console.log(track)
+    // if (track) {
         if (snapshot.exists()) {
             (snapshot.forEach(
                 function (datum) {
@@ -256,6 +258,7 @@ onValue(naughty_boys, (snapshot) => {
                     let name = users.get(key)
                     if (!name) {
                         console.log(key)
+                        console.log(users)
                         console.log("User ID Failure")
                         return false
                     }
@@ -292,7 +295,7 @@ onValue(naughty_boys, (snapshot) => {
             )
         }
         first = false
-    }
+    // }
 });
 
 
@@ -340,7 +343,7 @@ onValue(complaints_ref, () => {
             ));
         }
         if (!first) {
-            console.log("joe")
+            console.log("not first")
             users_complaining.forEach(
                 function (value, key) {
                     let name = users.get(key)
@@ -372,3 +375,11 @@ onValue(complaints_ref, () => {
     first = false
 });
 
+function reloads (){
+
+    location.reload()
+}
+
+if(first){
+setTimeout(reloads, 600000)
+}

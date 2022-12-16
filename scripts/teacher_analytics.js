@@ -61,9 +61,10 @@ function generateTable(user, user_data) {
             if (hours == 0) {
                 hours = 12
             }
-            hours.toString().padStart(2, '0')
-            minutes.toString().padStart(2,'0')
+            hours = hours.toString().padStart(2, '0')
             let minutes = date.getMinutes()
+            minutes = minutes.toString().padStart(2,'0')
+
             let time = `${hours}:${minutes}`
 
             for (let i = 0; i < 2; i++) {

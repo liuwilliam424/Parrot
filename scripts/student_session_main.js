@@ -112,6 +112,18 @@ document.addEventListener("visibilitychange", () => {
   }
 })
 
+function reset() {
+  submit_response(UID, 3);
+  console.log("reset")
+}
+
+const intervalID = setInterval(myCallback, 180000);
+
+function myCallback()
+{
+ reset()
+}
+
 // window.onresize = (event) => {
 //   console.log(window.innerHeight)
 //   console.log(window.innerWidth)
