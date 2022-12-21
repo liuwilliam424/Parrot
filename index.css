@@ -172,31 +172,64 @@ input[type="radio"]:checked::before {
 
 table {
     color: black;
-    border-collapse:collapse;
-    text-align:center
+    border-collapse: collapse;
+    text-align: center
 }
 
 tr {
     border: solid 5px darkblue
 }
 
-th{
-    padding:10px;
+th {
+    padding: 10px;
 }
 
-caption{
-    padding:10px
+caption {
+    padding: 10px
 }
 
 #session_code {
-    margin:10px;
+    margin: 10px;
 }
 
-#hows_class{
-    margin:10px;
+#hows_class {
+    margin: 10px;
 }
 
-#end_session_button{
-    margin:0px;
+#end_session_button {
+    margin: 0px;
 }
 
+.splash {
+    cursor: pointer;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0);
+    transition: all ease-in-out 600ms;
+}
+
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.title {
+    color: yellow;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 10rem;
+    text-align: center;
+    margin: 10px;
+}
+
+.subtitle {
+    color: yellow;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 2rem;
+    text-align: center
+}

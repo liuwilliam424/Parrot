@@ -130,3 +130,12 @@ sign_out_button.onclick = () => {
 localStorage.setItem("First_time", "True");
 localStorage.setItem("Window_height", window.innerHeight)
 localStorage.setItem("Window_width", window.innerWidth)
+
+//code for intro
+var splashScreen = document.querySelector('.splash');
+splashScreen.addEventListener('click',()=>{
+  splashScreen.style.opacity = 0;
+  setTimeout(()=>{
+    splashScreen.classList.add('hidden')
+  },610)
+})
