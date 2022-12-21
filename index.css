@@ -212,6 +212,11 @@ caption {
     transition: all ease-in-out 600ms;
 }
 
+.hidden{
+    transition : 0.5s;
+    display : none;
+  }
+
 .logo {
     display: block;
     margin-left: auto;
@@ -222,7 +227,7 @@ caption {
 .title {
     color: yellow;
     font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 10rem;
+    font-size: 5rem;
     text-align: center;
     margin: 10px;
 }
