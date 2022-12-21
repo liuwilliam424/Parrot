@@ -139,3 +139,4 @@ splashScreen.addEventListener('click',()=>{
     splashScreen.classList.add('hidden')
   },610)
 })
+

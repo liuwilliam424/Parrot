@@ -238,3 +238,10 @@ caption {
     font-size: 2rem;
     text-align: center
 }
+
+.subsubtitle {
+    color: yellow;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 1rem;
+    text-align: center
+}
