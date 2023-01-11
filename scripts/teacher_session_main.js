@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebas
 import { getDatabase, ref, set, update, child, get, onValue } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 import { Timestamp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 
+//firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBUcuvOpLrA0L0tj1pE82YVwZIeBZcSfDI",
     authDomain: "parrot-cac27.firebaseapp.com",
@@ -17,26 +18,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
+//Initializing HTML elements as variables
 let end_button = document.querySelector("#end_session_button")
 end_button.onclick = () => { location.href = "../html/teacher_analytics.html" }
-
 let confused = document.querySelector('#confused')
 let okay = document.querySelector('#okay')
 let understanding = document.querySelector('#understanding')
+
+//setting and initializing variables for later dyanimicity
 let num_confused = 0
 let num_okay = 0
 let num_understanding = 0
 let bod = document.querySelector('body')
-
 let tracking = document.querySelector('#tracking')
 
+//chart variables
 var xValues = ["Confused", "Okay", "Understanding"];
 var yValues = [num_confused, num_okay, num_understanding, 0];
 var barColors = ["red", "orange", "green"];
 
+//asynchronous timing variables
 let blinks = 0;
 let nIntervId;
 
+//chart to display data dynamically and visually
 var chart = new Chart("myChart", {
     type: "bar",
     data: {
@@ -55,6 +60,8 @@ var chart = new Chart("myChart", {
     }
 });
 
+
+//helper function to update non-response session data 
 function update_session_meta(session_id, UID) {
     console.log("writing user data")
     const db = getDatabase();
@@ -64,16 +71,20 @@ function update_session_meta(session_id, UID) {
     });
 }
 
+//updating data with current time and session ID
 update_session_meta(localStorage.getItem("SessionID"), localStorage.getItem("UID"))
 
+//retrieving information on session id and code
 let sessionID = localStorage.getItem("SessionID")
 let session_code = document.querySelector("#session_code")
 session_code.innerHTML = sessionID
 
+//creating new references for firebase database
 const dbRef = ref(database);
 const responses_ref = ref(database, `Sessions/${sessionID}/responses`);
 
 let users = new Map()
+//leveraged data structure of map to prevent repeats on iterations and essentially iterated through entire directory for relevant data
 
 get(child(dbRef, `Users/`)).then((snapshot) => {
     (snapshot.forEach(
@@ -87,6 +98,7 @@ get(child(dbRef, `Users/`)).then((snapshot) => {
 
 let confused_ori, okay_ori, understanding_ori;
 
+//overall listener to detect changes in firebase and start relevant actions in response
 onValue(responses_ref, (snapshot) => {
     console.log("data was submitted by student")
     let recent_data = new Map();
@@ -115,27 +127,23 @@ onValue(responses_ref, (snapshot) => {
                 }
             )
 
-
-            // console.log(num_confused, num_okay, num_understanding)
+            //setting text variables to actual values of number of students 
             confused.innerHTML = num_confused
             okay.innerHTML = num_okay
             understanding.innerHTML = num_understanding
 
+            //updating chart dynamicallly
             chart.data.datasets[0].data = [num_confused, num_okay, num_understanding, 0]
             chart.update()
 
-
+            //helper function to create flashing effect
             function blink() {
-                // console.log(bod.style.outline)
                 blinks += 1
-                // console.log(blinks)
                 if (bod.style.getPropertyValue('outline')) {
                     bod.style.outline = "";
-                    // console.log("turned white")
                 }
                 else if (bod.style.getPropertyValue('outline') == "") {
                     bod.style.outline = "red solid 60px";
-                    // console.log("turned red")
                 }
                 if (blinks >= 30) {
                     stopBlink()
@@ -163,9 +171,7 @@ onValue(responses_ref, (snapshot) => {
             let threshold2 = parseInt(0.5 * total)
             let threshold3 = parseInt(0.75 * total)
 
-            // console.log("threshold1 " + threshold1)
-            // console.log("num_confused " + num_confused)
-            // console.log("confused_ori " + confused_ori)
+            //following thresholds set based on total class size
             if (num_confused == threshold1 && confused_ori < threshold1) {
                 console.log("used blink")
                 useBlink()
@@ -186,6 +192,7 @@ onValue(responses_ref, (snapshot) => {
             okay_ori = num_okay;
             understanding_ori = num_understanding;
 
+            //resetting values of number of students per iteration
             num_confused = num_okay = num_understanding = 0
 
 
@@ -200,7 +207,7 @@ onValue(responses_ref, (snapshot) => {
 
 });
 
-
+//setting and initializing variables for starting variables of deviation tracker
 const naughty_boys = ref(database, `Sessions/${sessionID}/naughty_boys`);
 let badnesses = new Map();
 let badness_current = ""
@@ -211,10 +218,12 @@ let toasts = new Map();
 let first = true;
 console.log("yes first")
 
+//if track button is clicked, reload the page
 let track = true
 tracking.onclick = () => {
     location.reload()
     track = !track;
+    //deprecated tracking function
     // if (track) {
     //     tracking.innerHTML = 'Student Activity Tracking Enabled'
     //     tracking.style.backgroundColor = 'darkgreen'
@@ -226,10 +235,9 @@ tracking.onclick = () => {
     console.log(track)
 }
 
+//detect off-tab students using listener on specific directory within firebase
 onValue(naughty_boys, (snapshot) => {
     console.log("detected naughty boy")
-    // console.log(track)
-    // if (track) {
         if (snapshot.exists()) {
             (snapshot.forEach(
                 function (datum) {
@@ -298,7 +306,7 @@ onValue(naughty_boys, (snapshot) => {
     // }
 });
 
-
+//following code is similar to previous in concept but different in implementation -- using toasts to display complaints now and integrating toastify library
 const complaints_ref = ref(database, `Sessions/${sessionID}/complaints/new`);
 let users_complaining = new Map()
 let complaints_display = new Map()
@@ -376,7 +384,6 @@ onValue(complaints_ref, () => {
 });
 
 function reloads (){
-
     location.reload()
 }
 

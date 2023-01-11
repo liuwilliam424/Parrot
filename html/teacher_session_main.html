@@ -1,5 +1,9 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
 
 <head>
   <meta charset="UTF-8">
@@ -10,32 +14,40 @@
   <title>Teacher Session</title>
 </head>
 
+<!-- body containing all data on page -->
+
 <body>
+  <!-- vertical container established in css with flex -->
   <div class="container_vert">
 
-      <h3 id="session_code">Code:</h3>
-      <h3 id="hows_class">How's your class doing?</h3>
+    <!-- session code given along with brief welcome message -->
+    <h3 id="session_code">Code:</h3>
+    <h3 id="hows_class">How's your class doing?</h3>
 
-      <div class="container_hori">
-        <h2 id="confused">0</h2>
-        <br>
-        <h2 id="okay">0</h2>
-        <br>
-        <h2 id="understanding">0</h2>
-      </div>
-    
+    <!-- dynamic numbers reporting status of class -->
+    <div class="container_hori">
+      <h2 id="confused">0</h2>
+      <br>
+      <h2 id="okay">0</h2>
+      <br>
+      <h2 id="understanding">0</h2>
+    </div>
 
-  <canvas id="myChart"></canvas>
+    <!-- chart detailing status of class -->
+    <canvas id="myChart"></canvas>
 
-  <button id="end_session_button">End Session</button>
+    <!-- button that brings teacher to analytics -->
+    <button id="end_session_button">End Session</button>
 
-  <br>
+    <br>
 
-  <button id="tracking">Student Activity Tracking Enabled</button>
+    <!-- currently deprecated button that enables student activity tracking -->
+    <button id="tracking">Student Activity Tracking Enabled</button>
 
 
   </div>
 
+  <!-- connected scripts including relevant js page but also code necessary for toasts and chart -->
   <script type="module" src="../scripts/teacher_session_main.js"> </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
