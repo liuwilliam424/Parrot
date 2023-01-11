@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 
+//Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBUcuvOpLrA0L0tj1pE82YVwZIeBZcSfDI",
     authDomain: "parrot-cac27.firebaseapp.com",
@@ -16,6 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
+//writing user data helper function
 function writeUserData(UID, name, role) {
     console.log("writing user data")
     const db = getDatabase();
@@ -25,13 +27,15 @@ function writeUserData(UID, name, role) {
     });
   }
 
+//writing data profile to firebase
 writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
 
+//session code is dynamic and changes relevant to the correct code
 let session_code = Math.floor(Math.random()*10000000)
 localStorage.setItem("SessionID", session_code)
-
 let code_display = document.querySelector('#session_code')
 code_display.innerHTML = "Your code is " + session_code
 
+//start session button that transport to main session page
 let start_button = document.querySelector("#start_session")
 start_button.onclick = () => {location.href = "../html/teacher_session_main.html"}

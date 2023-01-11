@@ -1,4 +1,5 @@
 :root {
+    /* setting initial variables for font-sizes to maintain readability */
     --large-font-size: 2.25rem;
     --medium-font-size: 1.75rem;
     --small-medium-font-size: 1.4rem;
@@ -7,6 +8,7 @@
 }
 
 body {
+    /* standard formatting of all pages will be centered using flex with mild offsets */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,16 +18,20 @@ body {
 }
 
 h3 {
+    /* all headers will be set as follows */
     font-weight: 300;
     font-size: var(--large-font-size);
     text-align: center;
 }
 
 h2 {
+    /* all titles will be set as follows */
     font-weight: 300;
     font-size: 4rem;
     text-align: center;
 }
+
+/* colors indicating level of understanding */
 
 #confused {
     color: red
@@ -40,12 +46,14 @@ h2 {
 }
 
 #tracking {
+    /* tracking button will be designed as follows */
     color: white;
     background-color: darkgreen;
     margin: 0px;
 }
 
 input[type="text"] {
+    /* textbox will have border made to look constant and made wider and rounded; font is altered and overall shape is more stable */
     display: flex;
     border-color: black;
     padding: 20px;
@@ -56,6 +64,7 @@ input[type="text"] {
     transition: .3s all;
 }
 
+/* buttons will not appear in the beginning */
 
 #sign-out,
 #sign-in,
@@ -64,9 +73,12 @@ input[type="text"] {
 }
 
 p {
+    /* standard text will be set to this font and alignment */
     font-size: var(--small-medium-font-size);
     text-align: center
 }
+
+ /* buttons will be on default set pink and centered - they will also be rounded and given small transitions for dynamicity */
 
 button {
     background-color: rgb(241, 216, 254);
@@ -88,6 +100,8 @@ button:hover:active {
     transform: translate(0, 1px);
 }
 
+/* customizing buttons that allow students to detail understanding */
+
 #understanding_button {
     background-color: rgb(50, 190, 50);
 }
@@ -98,13 +112,13 @@ button:hover:active {
 }
 
 #confused_button {
+    /* starts off auto-selected because later JS will change it back into deselected on first select */
     background-color: rgb(129, 41, 41);
     border: solid 2px;
 }
 
-
-
 input[type="radio"] {
+    /* setting standard appearance of radio buttons as follows */
     appearance: none;
     width: var(--medium-font-size);
     height: var(--medium-font-size);
@@ -114,6 +128,8 @@ input[type="radio"] {
     place-content: center;
     position: relative;
 }
+
+/* radio button transitions to show small dyanimicity */
 
 input[type="radio"]::before {
     content: "";
@@ -131,6 +147,7 @@ input[type="radio"]:checked::before {
 }
 
 .container_vert {
+    /* container used to hold elements vertically with mild spacing */
     display: flex;
     flex-direction: column;
     box-shadow: turquoise;
@@ -141,12 +158,14 @@ input[type="radio"]:checked::before {
 }
 
 .button-grid {
+    /* container used to hold buttons in grid used in student confusion elaboration page */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
 }
 
 .container_hori {
+    /* container used to hold elements horizontally with mild spacing */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,15 +179,19 @@ input[type="radio"]:checked::before {
 }
 
 .radio-selection {
+    /* radio selection set to proper align and display type */
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
 #myChart {
+    /* editing library settings of  charge*/
     display: flex;
     width: 25em
 }
+
+/* detailing design of plain black table for final data page for teacher  */
 
 table {
     color: black;
@@ -188,6 +211,8 @@ caption {
     padding: 10px
 }
 
+/* standardizing margins across different elements */
+
 #session_code {
     margin: 10px;
 }
@@ -199,6 +224,8 @@ caption {
 #end_session_button {
     margin: 0px;
 }
+
+/* setting intro element to cover entire screen and disappear on click -- only for logo*/
 
 .splash {
     cursor: pointer;
@@ -223,6 +250,8 @@ caption {
     margin-right: auto;
     width: 40%;
 }
+
+/* align and spacing for titles on intro page */
 
 .title {
     color: yellow;

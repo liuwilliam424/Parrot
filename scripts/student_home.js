@@ -18,9 +18,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+//initialize HTML elements as variables
 let session_code_box = document.querySelector('#code_enter')
 let session_button = document.querySelector('#code_button')
 
+//helper function to write user data quickly
 function writeUserData(UID, name, role) {
     console.log("writing user data")
     set(ref(db, 'Users/' + UID), {
@@ -29,8 +31,10 @@ function writeUserData(UID, name, role) {
     });
 }
 
+//user helper function to write profiles for each student to be stored in firebase
 writeUserData(localStorage.getItem("UID"), localStorage.getItem("Name"), localStorage.getItem("Role"))
 
+//button that brings to page with relevant session code with alert protection
 session_button.onclick = () => {
     console.log("SessionID: " + session_code_box.value)
     localStorage.setItem("SessionID", session_code_box.value)

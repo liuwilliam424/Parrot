@@ -1,5 +1,8 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
 
 <head>
   <meta charset="UTF-8">
@@ -8,21 +11,30 @@
   <link rel="stylesheet" href="../index.css">
   <title>Testing Button</title>
 
+  <!-- body containing all data on page -->
+
 <body>
+
+  <!-- vertical container established in css with flex -->
   <div class="container_vert">
+
+    <!-- title message detailing instructions -->
     <h3>Please elaborate on your confusion.</h3>
     <div class="button-grid">
+      <!-- all buttons for students to elaborate confusion -->
       <button id="example">Can you give an example?</button>
       <button id="slow">Can you slow down?</button>
       <button id="repeat">Can you repeat that?</button>
-      
-      <input type="text" id="comment" placeholder="Enter text here...">
 
+      <!-- extra button for students to elaborate their own text -->
+      <input type="text" id="comment" placeholder="Enter text here...">
     </div>
+
+    <!-- button for students who don't have any extra elaboration -->
     <button id="skip">I don't need to elaborate</button>
   </div>
 
-
+  <!-- connecting file with relevant js page -->
   <script type="module" src="../scripts/student_confused.js"> </script>
 </body>
 

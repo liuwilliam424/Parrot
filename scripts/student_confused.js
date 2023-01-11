@@ -20,16 +20,18 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 const analytics = getAnalytics(app);
 
+//Retrieve local storage information, specifically the session ID and the UID
 let session_id = localStorage.getItem("SessionID")
 let uid = localStorage.getItem("UID")
 
-
+//Set variables for important elements on document
 let example = document.querySelector('#example')
 let slow = document.querySelector('#slow')
 let repeat = document.querySelector('#repeat')
 let comment = document.querySelector('#comment')
 let skip = document.querySelector('#skip')
 
+//When clicking example button, relevant information is sent and page moves asynchronously
 example.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
@@ -42,6 +44,7 @@ example.onclick = () => {
     )
 }
 
+//When clicking slow down button, relevant information is sent and page moves asynchronously
 slow.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
@@ -54,6 +57,7 @@ slow.onclick = () => {
     )
 }
 
+//When clicking please repeat button, relevant information is sent and page moves asynchronously
 repeat.onclick = () => {
     push(ref(database, '/Sessions/' + session_id + '/complaints'), {
         user_id: uid,
@@ -66,10 +70,12 @@ repeat.onclick = () => {
     )
 }
 
+//when clicking skip button the page immediately changes synchonously
 skip.onclick = () => {
     location.href = "student_session_main.html"
 }
 
+//Listener for seeing when enter is pressed on comment box that sends data for relevant toast
 comment
     .addEventListener("keyup", function (event) {
         event.preventDefault();
@@ -85,4 +91,5 @@ comment
                 }).then(function () { location.href = "student_session_main.html" })
             }
             )
-        }})
+        }
+    })

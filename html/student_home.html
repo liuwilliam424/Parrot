@@ -1,5 +1,9 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
 
 <head>
     <meta charset="UTF-8">
@@ -9,18 +13,24 @@
     <title>Student Home</title>
 </head>
 
-<body>
-    <div class="container_vert">
-        <h3>Enter connection code</h3>
+<!-- body containing all data on page -->
 
+<body>
+    <!-- vertical container established in css with flex -->
+    <div class="container_vert">
+
+        <!-- starting text for students detailing page instructions adjacent to code box-->
+        <h3>Enter connection code</h3>
         <input type="text" id="code_enter" name="code_enter"><br>
 
+        <!-- extraneous helpful information -->
         <p>Please wait for teacher to start session before joining.</p>
 
+        <!-- button that brings student to main page of active session -->
         <button id="code_button">Join Session</button>
     </div>
-    
-    
+
+    <!-- connecting file with relevant js page -->
     <script type="module" src="../scripts/student_home.js"> </script>
 
 </body>

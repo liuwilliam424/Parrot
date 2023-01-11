@@ -1,5 +1,9 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
 
 <head>
   <meta charset="UTF-8">
@@ -9,17 +13,22 @@
   <title>Teacher Home</title>
 </head>
 
+<!-- body containing all data on page -->
+
 <body>
+  <!-- vertical container established in css with flex -->
   <div class="container_vert">
 
+    <!-- introductory message for teacher detailing session code -->
     <h3>Let's get ready to teach!</h3>
-
     <p id="session_code">Your code is 123456</p>
 
+    <!-- button to being session and brings teacher to main session  -->
     <button id="start_session">Start Session</button>
 
   </div>
 
+  <!-- connecting file with relevant js page -->
   <script type="module" src="../scripts/teacher_home.js"> </script>
 </body>
 

@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebas
 import { getDatabase, ref, set, update, child, get, onValue } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 import { Timestamp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 
+//Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBUcuvOpLrA0L0tj1pE82YVwZIeBZcSfDI",
     authDomain: "parrot-cac27.firebaseapp.com",
@@ -16,23 +17,26 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
-
 const dbRef = ref(database);
 let sessionID = localStorage.getItem("SessionID")
 
+//Initialize HTML elements as variables
 let vert = document.querySelector('.container_vert')
 
-
+//overarching function to generate table
 function generateTable(user, user_data) {
     // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
     const tblBody = document.createElement("tbody");
 
+    //adds caption with label
     const capt = document.createElement('caption')
     const capt_text = document.createTextNode(user)
     capt.appendChild(capt_text)
     tbl.appendChild(capt);
 
+
+    //each row of data has cell one and two
     const row_top = document.createElement('tr')
 
     const cell_one = document.createElement("th");
@@ -98,8 +102,11 @@ function generateTable(user, user_data) {
     // tbl.setAttribute("border", "2");
 }
 
+//data processing functions by reading from firebase
+
 let recent_data = new Map();
 
+//leveraged data structure of map to prevent repeats on iterations and essentially iterated through entire directory for relevant data
 get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
     if (snapshot.exists()) {
         (snapshot.forEach(
@@ -145,5 +152,6 @@ get(child(dbRef, `Sessions/${sessionID}/responses`)).then((snapshot) => {
     console.error(error);
 });
 
+//button to end session
 let end_button = document.querySelector("#end_session_button")
 end_button.onclick = () => { location.href = "../html/teacher_end.html" }

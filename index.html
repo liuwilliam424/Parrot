@@ -1,5 +1,9 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
 
 <head>
     <meta charset="UTF-8">
@@ -9,10 +13,16 @@
     <title>Get Started!</title>
 </head>
 
+<!-- body containing all data on page -->
+
 <body>
+    <!-- vertical container established in css with flex -->
     <div class="container_vert">
+
+        <!-- welcome message id'ed respectively -->
         <h3 id="welcome_message">Welcome, ready to learn?</h3>
 
+        <!-- student and teacher radio buttons set horizontally next to each other with spacing -->
         <div style="display:flex; gap:10px">
             <div class="radio-selection">
                 <input type="radio" id="student" name="student_or_teacher" value="Student">
@@ -21,24 +31,29 @@
             <div class="radio-selection">
                 <input type="radio" id="teacher" name="student_or_teacher" value="Teacher">
                 <label for="teacher">Teacher</label><br>
-            </div>
+            </div>S
         </div>
 
+        <!-- button that signs in using google -->
         <button id="sign-in" disabled>Sign in with Google</button>
+
+        <!-- continue and sign-out buttons that only appear if already signed in -->
         <button id="continue" disabled>Let's get started!</button>
         <button id="sign-out" disabled>Sign Out</button>
+
     </div>
+
+    <!-- starting logo with disappearing act when clicked on -->
     <div class="splash">
         <br>
         <img class='logo' src='assets/parrotLogo.png'></img>
+
         <h1 class='title'>Parrot</h1>
         <h1 class='subtitle'>a voice for students</h1>
-        
         <h1 class='subsubtitle'>(click anywhere to start)</h1>
-
     </div>
 
-
+    <!-- connecting file with relevant js page -->
     <script type="module" src="scripts/index.js"> </script>
 </body>
 

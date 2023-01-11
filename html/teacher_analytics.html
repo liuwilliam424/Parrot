@@ -1,26 +1,35 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../index.css">
-    <title>Session Analytics</title>
+<html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../index.css">
+  <title>Session Analytics</title>
 </head>
 
+<!-- body containing all data on page -->
+
 <body>
+  <!-- vertical container established in css with flex -->
   <div class="container_vert">
-  <h3>Session Analytics</h3>
-  <p>This information is not saved. Please take a screenshot if you wish to preserve it.</p>
-  <button id="end_session_button">Finish!</button>
 
-  <!-- <div class="graph_container">
-    <canvas id="Chart1"></canvas>
-  </div> -->
-</div>
-  
+    <!-- teacher information and instructions on how to save data -->
+    <h3>Session Analytics</h3>
+    <p>This information is not saved. Please take a screenshot if you wish to preserve it.</p>
 
+    <!-- button that takes teacher to end of program -->
+    <button id="end_session_button">Finish!</button>
 
+  </div>
+
+  <!-- connecting file with relevant js page -->
   <script type="module" src="../scripts/teacher_analytics.js"> </script>
 </body>
+
 </html>

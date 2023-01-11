@@ -1,5 +1,9 @@
+<!-- establishing  language and programming filetype -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- standard head containing metadata on character set, compatibility, and title -->
+<!-- also initializes standard stylesheet and sets initial viewing sizing -->
 
 <head>
     <meta charset="UTF-8">
@@ -9,18 +13,26 @@
     <title>Student Session</title>
 </head>
 
+<!-- body containing all data on page -->
+
 <body>
+    <!-- vertical container established in css with flex -->
     <div class="container_vert">
-        <h3>How well do you understand the lesson?</h3>  
+
+        <!-- main page message detailing instructions as well as informing of limitations -->
+        <h3>How well do you understand the lesson?</h3>
         <p>Please don't reload or leave the tab.</p>
-        
+
+        <!-- set of buttons for student to select relevant level of understanding -->
         <div class="container_hori">
-          <button id="understanding_button">😃</button>
-          <button id="okay_button">😐</button>
-          <button id="confused_button">😔</button>
+            <button id="understanding_button">😃</button>
+            <button id="okay_button">😐</button>
+            <button id="confused_button">😔</button>
         </div>
-        
+
     </div>
+
+    <!-- connecting file with relevant js page -->
     <script type="module" src="../scripts/student_session_main.js"> </script>
 
 </body>
