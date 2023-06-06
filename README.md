@@ -1,4 +1,4 @@
-# EDD
+# It's  time to learn!
 
 Welcome to Parrot, an education-supplement for classrooms, supporting commmunication between Teachers and Students. 
 Visit https://liuwilliam424.github.io/EDD/ to test it out!
