@@ -4,6 +4,8 @@
 
 **Try it live:** [https://parrot.williamzliu.com](https://parrot.williamzliu.com)
 
+Note: The website currently does not work as we ran out of funds to support Firebase.
+
 ## What It Does
 
 - Enables real-time, anonymous Q&A during lectures
